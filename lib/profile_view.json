@@ -1,0 +1,23 @@
+{
+    "id": "UUID",
+    "name": "Felix",
+    "value": "Belix",
+    "contact": {
+        "mobile": "9677998011",
+        "email": "felixbelix007@gmail.com"
+    },
+    "details": {
+        "gender": "male",
+        "occupation": "unemployed"
+    },
+    "actionButtons": {
+        "check_eligibility": {
+            "label": "Check Eligibility",
+            "form": "check_eligibilty_form"
+        },
+        "check_status": {
+            "label": "Check Status",
+            "form": "check_status_form"
+        }
+    }
+}
