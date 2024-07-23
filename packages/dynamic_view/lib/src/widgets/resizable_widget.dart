@@ -83,6 +83,7 @@ class ResizableWidgetState extends State<ResizableWidget> {
                           widget.widget.properties['label'],
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                              fontSize: widget.widget.properties['labelSize'],
                               color: Color(
                                   widget.widget.properties['labelColor'])),
                         ),

@@ -35,10 +35,9 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
                 ),
                 const Expanded(flex: 3, child: DropTarget()),
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: CustomizationPanel(
                     widget: state.selectedWidget,
-                   
                   ),
                 ),
               ],
