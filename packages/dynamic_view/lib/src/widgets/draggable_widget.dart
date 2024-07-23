@@ -59,7 +59,9 @@ class DraggableWidget extends StatelessWidget {
             },
             child: Text(
               data.properties['label'],
-              style: TextStyle(color: Color(data.properties['labelColor'])),
+              style: TextStyle(
+                  color: Color(data.properties['labelColor']),
+                  fontSize: data.properties['labelSize']),
             ),
           ),
         );
@@ -79,7 +81,7 @@ class DraggableWidget extends StatelessWidget {
             child: Text(
               data.properties['label'].toString().toUpperCase(),
               style: TextStyle(
-                  fontSize: data.properties['fontSize'],
+                  fontSize: data.properties['labelSize'],
                   color: Color(data.properties['labelColor'])),
             ),
           ),
@@ -95,7 +97,9 @@ class DraggableWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               data.properties['label'],
-              style: TextStyle(color: Color(data.properties['labelColor'])),
+              style: TextStyle(
+                  color: Color(data.properties['labelColor']),
+                  fontSize: data.properties['labelSize']),
             ),
           ),
         );

@@ -7,6 +7,7 @@ final class ViewBuilderState extends Equatable {
     required this.status,
     required this.message,
     required this.rightSideWidgets,
+    required this.selectedWidget,
     required this.height,
     required this.width,
     required this.devices,
@@ -18,6 +19,7 @@ final class ViewBuilderState extends Equatable {
   final ViewBuilderStatus status;
   final String message;
   final List<WidgetModel> rightSideWidgets;
+  final WidgetModel? selectedWidget;
   final double height;
   final double width;
   final List<DeviceOption> devices;
@@ -31,6 +33,7 @@ final class ViewBuilderState extends Equatable {
       status: ViewBuilderStatus.initial,
       message: '',
       rightSideWidgets: const [],
+      selectedWidget: null,
       height:
           deviceList.map((json) => DeviceOption.fromJson(json)).first.height,
       width: deviceList.map((json) => DeviceOption.fromJson(json)).first.width,
@@ -54,6 +57,7 @@ final class ViewBuilderState extends Equatable {
     ViewBuilderStatus? status,
     String? message,
     List<WidgetModel>? rightSideWidgets,
+    WidgetModel? selectedWidget,
     double? height,
     double? width,
     List<DeviceOption>? devices,
@@ -65,6 +69,7 @@ final class ViewBuilderState extends Equatable {
       status: status ?? this.status,
       message: message ?? this.message,
       rightSideWidgets: rightSideWidgets ?? this.rightSideWidgets,
+      selectedWidget: selectedWidget ?? this.selectedWidget,
       height: height ?? this.height,
       width: width ?? this.width,
       devices: devices ?? this.devices,

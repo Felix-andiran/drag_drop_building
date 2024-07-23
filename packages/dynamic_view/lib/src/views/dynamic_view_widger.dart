@@ -1,8 +1,6 @@
 import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
-import 'package:dynamic_view/src/model/widget_model.dart';
 import 'package:dynamic_view/src/widgets/customization_panel.dart';
 import 'package:dynamic_view/src/widgets/data_list_widget.dart';
-import 'package:dynamic_view/src/widgets/device_dropdown.dart';
 import 'package:dynamic_view/src/widgets/drop_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,25 +33,12 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
                     viewData: widget.viewData,
                   ),
                 ),
+                const Expanded(flex: 3, child: DropTarget()),
                 Expanded(
-                    flex: 3,
-                    child: DropTarget(
-                      onWidgetSelected: (widget) {
-                        setState(() {
-                        });
-                      },
-                    )),
-                const Expanded(
-                  flex: 1,
-                  child: SizedBox(),
-                  //  CustomizationPanel(
-                  //   widget: selectedWidget,
-                  //   onPropertiesChanged: (properties) {
-                  //     setState(() {
-                  //       selectedWidget?.properties = properties;
-                  //     });
-                  //   },
-                  // ),
+                  flex: 2,
+                  child: CustomizationPanel(
+                    widget: state.selectedWidget,
+                  ),
                 ),
               ],
             ),

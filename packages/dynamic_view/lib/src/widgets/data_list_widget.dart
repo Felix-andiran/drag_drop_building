@@ -24,6 +24,7 @@ class DataListWidget extends StatelessWidget {
                 'key': key,
                 'form': form,
                 'label': buttonLabel,
+                'labelSize': 14.0,
                 'color': 0xFF2196F3,
                 'labelColor': 0xFFE1E1E1,
                 'width': 100.0,
@@ -46,8 +47,8 @@ class DataListWidget extends StatelessWidget {
         viewWidgets.add(DraggableWidget(
           data: WidgetModel(type: WidgetType.text, properties: {
             'key': key,
-            'value': value,
             'label': key,
+            'value': value,
             'labelSize': 14.0,
             'valueSize': 12.0,
             'labelColor': 0xFF2196F3,
