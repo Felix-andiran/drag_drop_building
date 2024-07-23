@@ -37,6 +37,26 @@ class RemoveRightSideWidgetEvent extends ViewBuilderEvent {
   List<Object> get props => [widget, key];
 }
 
+class SelectWidgetModelEvent extends ViewBuilderEvent {
+  final WidgetModel widgetModel;
+  const SelectWidgetModelEvent({
+    required this.widgetModel,
+  });
+
+  @override
+  List<Object> get props => [widgetModel];
+}
+
+class ChangePropertiesSelectedWidgetEvent extends ViewBuilderEvent {
+  final Map<String, dynamic> changedProperties;
+  const ChangePropertiesSelectedWidgetEvent({
+    required this.changedProperties,
+  });
+
+  @override
+  List<Object> get props => [changedProperties];
+}
+
 class ReorderRightSideWidgetEvent extends ViewBuilderEvent {
   final int oldIndex;
   final int newIndex;

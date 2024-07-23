@@ -1,6 +1,5 @@
 import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
 import 'package:dynamic_view/src/model/widget_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,20 +70,22 @@ class ResizableWidgetState extends State<ResizableWidget> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                              Color(widget.widget.properties['color']))),
-                      onPressed: () {
-                        if (kDebugMode) {
-                          print(widget.widget.properties['form']);
-                        }
-                      },
-                      child: Text(
-                        widget.widget.properties['label'],
-                        style: TextStyle(
-                            color:
-                                Color(widget.widget.properties['labelColor'])),
+                    child: Container(
+                      height: widget.widget.properties['height'],
+                      width: widget.widget.properties['width'],
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              widget.widget.properties['borderRadius'])),
+                          shape: BoxShape.rectangle,
+                          color: Color(widget.widget.properties['color'])),
+                      child: Center(
+                        child: Text(
+                          widget.widget.properties['label'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Color(
+                                  widget.widget.properties['labelColor'])),
+                        ),
                       ),
                     ),
                   ))),

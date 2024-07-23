@@ -13,6 +13,9 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     on<DeviceOptionEvent>(_changeDeviceOptionToState);
     on<RightSidePositionedWidgetEvent>(_insertRightSideWidgetToState);
     on<RemoveRightSideWidgetEvent>(_removeRightSideWidgetFromState);
+    on<SelectWidgetModelEvent>(_selectWidgetModelFromState);
+    on<ChangePropertiesSelectedWidgetEvent>(
+        _changeSelectWidgetPropertiesFromState);
     on<ReorderRightSideWidgetEvent>(_reorderRightSideWidgetFromState);
   }
 
@@ -71,8 +74,8 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       List<WidgetModel> newRightSideWidgets =
           List<WidgetModel>.from(state.rightSideWidgets);
 
-      int indexToRemove =
-          newRightSideWidgets.indexWhere((widget) => widget.properties['key'] == event.key);
+      int indexToRemove = newRightSideWidgets
+          .indexWhere((widget) => widget.properties['key'] == event.key);
       log.d("Index to be removed from the right side widget ::: ${event.key}");
       newRightSideWidgets.removeAt(indexToRemove);
 
@@ -85,6 +88,59 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       emit(state.copyWith(
           status: ViewBuilderStatus.error,
           message: 'Failed to remove widget: $error'));
+    }
+  }
+
+  Future<void> _selectWidgetModelFromState(
+      SelectWidgetModelEvent event, Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      log.d(
+          "Selected Widget Model from right side widgets ::: ${event.widgetModel!.properties}");
+
+      emit(state.copyWith(
+          selectedWidget: event.widgetModel, status: ViewBuilderStatus.loaded));
+    } catch (error) {
+      log.e(
+          "Select Widget Model from Right Side Widget Event::Setting state to failure::::$error");
+      emit(state.copyWith(
+          status: ViewBuilderStatus.error,
+          message: 'Failed to remove widget: $error'));
+    }
+  }
+
+  Future<void> _changeSelectWidgetPropertiesFromState(
+      ChangePropertiesSelectedWidgetEvent event,
+      Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      List<WidgetModel> newRightSideWidgets =
+          List<WidgetModel>.from(state.rightSideWidgets);
+
+      int indexOfWidgetModel = newRightSideWidgets.indexWhere((widget) =>
+          widget.properties['key'] == event.changedProperties['key']);
+      log.d("Index of the widget to change properties: $indexOfWidgetModel");
+
+      if (indexOfWidgetModel == -1) {
+        throw RangeError(
+            'Widget with key ${event.changedProperties['key']} not found');
+      }
+
+      // Update the properties of the found widget
+      newRightSideWidgets[indexOfWidgetModel].properties = {
+        ...newRightSideWidgets[indexOfWidgetModel].properties,
+        ...event.changedProperties,
+      };
+
+      emit(state.copyWith(
+          rightSideWidgets: newRightSideWidgets,
+          status: ViewBuilderStatus.loaded));
+    } catch (error) {
+      log.e(
+          "Change Properties Selected Widget Event::Setting state to failure::::$error");
+      emit(state.copyWith(
+          status: ViewBuilderStatus.error,
+          message: 'Failed to change properties: $error'));
     }
   }
 

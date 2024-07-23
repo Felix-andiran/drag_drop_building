@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DropTarget extends StatefulWidget {
-  final Function(WidgetModel) onWidgetSelected;
 
   const DropTarget({
     super.key,
-    required this.onWidgetSelected,
   });
 
   @override
@@ -56,8 +54,10 @@ class DropTargetState extends State<DropTarget> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                widget.onWidgetSelected(
-                                    state.rightSideWidgets[index]);
+                                context.read<ViewBuilderBloc>().add(
+                                    SelectWidgetModelEvent(
+                                        widgetModel:
+                                            state.rightSideWidgets[index]));
                               },
                               child: ResizableWidget(
                                 widget: state.rightSideWidgets[index],
