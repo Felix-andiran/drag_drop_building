@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DropTarget extends StatefulWidget {
-
   const DropTarget({
     super.key,
   });
@@ -31,44 +30,58 @@ class DropTargetState extends State<DropTarget> {
             return Container(
               height: double.infinity,
               color: Colors.grey.shade200,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const DeviceDropdown(),
-                    Container(
-                      color: Colors.white54,
-                      height: state.height,
-                      width: state.width,
-                      child: Expanded(
-                        child: GridView.builder(
-                          padding: const EdgeInsets.all(20),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
+              child: Column(
+                children: [
+                  const DeviceDropdown(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: GridPaper(
+                        divisions: 1,
+                        color: Colors.transparent,
+                        child: Container(
+                          color: Colors.white54,
+                          height: state.height,
+                          width: state.width,
+                          child: Stack(
+                            children: state.rightSideWidgets.map((widgetModel) {
+                              final double dx =
+                                  widgetModel.properties['dx'] ?? 0.0;
+                              final double dy =
+                                  widgetModel.properties['dy'] ?? 0.0;
+                              return Positioned(
+                                left: dx,
+                                top: dy,
+                                child: GestureDetector(
+                                  onPanUpdate: (details) {
+                                    setState(() {
+                                      widgetModel.properties['dx'] =
+                                          dx + details.delta.dx;
+                                      widgetModel.properties['dy'] =
+                                          dy + details.delta.dy;
+                                    });
+                                  },
+                                  onPanEnd: (details) {
+                                    context.read<ViewBuilderBloc>().add(
+                                          SelectWidgetModelEvent(
+                                              widgetModel: widgetModel),
+                                        );
+                                  },
+                                  onTap: () {
+                                    context.read<ViewBuilderBloc>().add(
+                                          SelectWidgetModelEvent(
+                                              widgetModel: widgetModel),
+                                        );
+                                  },
+                                  child: ResizableWidget(widget: widgetModel),
+                                ),
+                              );
+                            }).toList(),
                           ),
-                          itemCount: state.rightSideWidgets.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                context.read<ViewBuilderBloc>().add(
-                                    SelectWidgetModelEvent(
-                                        widgetModel:
-                                            state.rightSideWidgets[index]));
-                              },
-                              child: ResizableWidget(
-                                widget: state.rightSideWidgets[index],
-                              ),
-                            );
-                          },
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },
