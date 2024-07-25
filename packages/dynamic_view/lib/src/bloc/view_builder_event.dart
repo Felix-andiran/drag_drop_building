@@ -57,14 +57,16 @@ class ChangePropertiesSelectedWidgetEvent extends ViewBuilderEvent {
   List<Object> get props => [changedProperties];
 }
 
-class ReorderRightSideWidgetEvent extends ViewBuilderEvent {
-  final int oldIndex;
-  final int newIndex;
-  const ReorderRightSideWidgetEvent({
-    required this.oldIndex,
-    required this.newIndex,
-  });
+// class RightSideWidgetPositioningEvent extends ViewBuilderEvent {
+//   final double newDx;
+//   final double newDy;
+//   final Map<String, dynamic> changedProperties;
+//   const RightSideWidgetPositioningEvent({
+//     required this.newDx,
+//     required this.newDy,
+//     required this.changedProperties,
+//   });
 
-  @override
-  List<Object> get props => [oldIndex, newIndex];
-}
+//   @override
+//   List<Object> get props => [newDx, newDy, changedProperties];
+// }

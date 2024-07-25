@@ -29,7 +29,9 @@ class DataListWidget extends StatelessWidget {
                 'labelColor': 0xFFE1E1E1,
                 'width': 100.0,
                 'height': 50.0,
-                'borderRadius': 10.0
+                'borderRadius': 10.0,
+                'dx': 0.0,
+                'dy': 0.0
               }),
             );
           }).toList());
@@ -53,6 +55,8 @@ class DataListWidget extends StatelessWidget {
             'valueSize': 12.0,
             'labelColor': 0xFF2196F3,
             'valueColor': 0xFF000000,
+            'dx': 0.0,
+            'dy': 0.0
           }),
         ));
       }
