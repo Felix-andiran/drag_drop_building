@@ -16,7 +16,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     on<SelectWidgetModelEvent>(_selectWidgetModelFromState);
     on<ChangePropertiesSelectedWidgetEvent>(
         _changeSelectWidgetPropertiesFromState);
-    on<ReorderRightSideWidgetEvent>(_reorderRightSideWidgetFromState);
+    // on<RightSideWidgetPositioningEvent>(_changeSelectWidgetPositionsFromState);
   }
 
   final log = Logger();
@@ -48,17 +48,22 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
       List<WidgetModel> newRightSideWidgets = List.from(state.rightSideWidgets);
+      bool widgetExists = newRightSideWidgets.any((widget) =>
+          widget.properties['key'] == event.widget.properties['key']);
 
-      var position = newRightSideWidgets.length;
-      if (newRightSideWidgets.contains(event.widget)) {
-        position = newRightSideWidgets.indexOf(event.widget);
+      if (!widgetExists) {
+        var position = newRightSideWidgets.length;
+        if (newRightSideWidgets.contains(event.widget)) {
+          position = newRightSideWidgets.indexOf(event.widget);
+        }
+        newRightSideWidgets.insert(position, event.widget);
+        emit(state.copyWith(
+            rightSideWidgets: newRightSideWidgets,
+            status: ViewBuilderStatus.loaded));
+      } else {
+        emit(state.copyWith(
+            status: ViewBuilderStatus.loaded)); // No change in the list
       }
-
-      newRightSideWidgets.insert(position, event.widget);
-
-      emit(state.copyWith(
-          rightSideWidgets: newRightSideWidgets,
-          status: ViewBuilderStatus.loaded));
     } catch (error) {
       log.e("Load Favorite Data Event::Setting state to failure::::$error");
       emit(state.copyWith(
@@ -126,7 +131,6 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
             'Widget with key ${event.changedProperties['key']} not found');
       }
 
-      // Update the properties of the found widget
       newRightSideWidgets[indexOfWidgetModel].properties = {
         ...newRightSideWidgets[indexOfWidgetModel].properties,
         ...event.changedProperties,
@@ -144,33 +148,61 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  Future<void> _reorderRightSideWidgetFromState(
-    ReorderRightSideWidgetEvent event,
-    Emitter<ViewBuilderState> emit,
-  ) async {
-    emit(state.copyWith(status: ViewBuilderStatus.loading));
-    try {
-      List<WidgetModel> newRightSideWidgets =
-          List<WidgetModel>.from(state.rightSideWidgets);
+  // Future<void> _changeSelectWidgetPositionsFromState(
+  //     RightSideWidgetPositioningEvent event,
+  //     Emitter<ViewBuilderState> emit) async {
+  //   emit(state.copyWith(status: ViewBuilderStatus.loading));
+  //   try {
+  //     List<WidgetModel> newRightSideWidgets =
+  //         List<WidgetModel>.from(state.rightSideWidgets);
 
-      int oldIndex = event.oldIndex;
-      int newIndex = event.newIndex;
+  //     int indexOfWidgetModel = newRightSideWidgets.indexWhere((widget) =>
+  //         widget.properties['key'] == event.changedProperties['key']);
+  //     log.d("Index of the widget to change properties: $indexOfWidgetModel");
 
-      if (newIndex > oldIndex) {
-        newIndex -= 1;
-      }
-      final widget = newRightSideWidgets.removeAt(oldIndex);
-      newRightSideWidgets.insert(newIndex, widget);
+  //     if (indexOfWidgetModel == -1) {
+  //       throw RangeError(
+  //           'Widget with key ${event.changedProperties['key']} not found');
+  //     }
 
-      emit(state.copyWith(
-          rightSideWidgets: newRightSideWidgets,
-          status: ViewBuilderStatus.loaded));
-    } catch (error) {
-      log.e(
-          "Remove Right Side Widget Event::Setting state to failure::::$error");
-      emit(state.copyWith(
-          status: ViewBuilderStatus.error,
-          message: 'Failed to remove widget: $error'));
-    }
-  }
+  //     var widgetModel = newRightSideWidgets[indexOfWidgetModel];
+  //     var widgetProperties = widgetModel.properties;
+
+  //     double dx = widgetProperties['dx'] ?? 0.0;
+  //     double dy = widgetProperties['dy'] ?? 0.0;
+  //     double widgetWidth = widgetProperties['width'] ?? 0.0;
+  //     double widgetHeight = widgetProperties['height'] ?? 0.0;
+  //     double newDx = dx + event.newDx;
+  //     double newDy = dy + event.newDy;
+
+  //     double bodyWidth = state.width;
+  //     double bodyHeight = state.height;
+  //     if (newDx < 5) newDx = 5;
+  //     if (newDy < 5) newDy = 5;
+  //     if (newDx + widgetWidth > bodyWidth - 5) {
+  //       newDx = bodyWidth - widgetWidth - 5;
+  //     }
+  //     if (newDy + widgetHeight > bodyHeight - 5) {
+  //       newDy = bodyHeight - widgetHeight - 5;
+  //     }
+
+  //     widgetProperties['dx'] = newDx;
+  //     widgetProperties['dy'] = newDy;
+
+  //     widgetModel.properties = {
+  //       ...widgetProperties,
+  //       ...event.changedProperties,
+  //     };
+
+  //     emit(state.copyWith(
+  //         rightSideWidgets: newRightSideWidgets,
+  //         status: ViewBuilderStatus.loaded));
+  //   } catch (error) {
+  //     log.e(
+  //         "Change Properties Selected Widget Event::Setting state to failure::::$error");
+  //     emit(state.copyWith(
+  //         status: ViewBuilderStatus.error,
+  //         message: 'Failed to change properties: $error'));
+  //   }
+  // }
 }
