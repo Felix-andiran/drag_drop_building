@@ -96,8 +96,8 @@ class DropTargetState extends State<DropTarget> {
                                       final double width =
                                           widgetModel.properties['width'] ??
                                               100.0;
-                                      Rect rect = Rect.fromLTWH(
-                                          dx, dy, width + 10, height + 10);
+                                      Rect rect =
+                                          Rect.fromLTWH(dx, dy, width, height);
 
                                       return TransformableBox(
                                         rect: rect,
@@ -105,7 +105,10 @@ class DropTargetState extends State<DropTarget> {
                                             Size(bodyWidth, bodyHeight),
                                         onChanged: (result, event) {
                                           rect = result.rect;
-
+                                          widgetModel.properties['dx'] =
+                                              result.rect.left;
+                                          widgetModel.properties['dy'] =
+                                              result.rect.top;
                                           widgetModel.properties['height'] =
                                               result.rect.height.round();
                                           widgetModel.properties['width'] =
