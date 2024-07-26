@@ -5,11 +5,10 @@ import 'package:dynamic_view/src/widgets/resizable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:flutter_box_transform/flutter_box_transform.dart';
 
 class DropTarget extends StatefulWidget {
-  const DropTarget({
-    super.key,
-  });
+  const DropTarget({super.key});
 
   @override
   DropTargetState createState() => DropTargetState();
@@ -71,19 +70,6 @@ class DropTargetState extends State<DropTarget> {
                           ),
                           body: DragTarget<WidgetModel>(
                             onAcceptWithDetails: (details) {
-                              final RenderBox dragTargetBox =
-                                  context.findRenderObject() as RenderBox;
-
-                              final Offset dropOffset = details.offset;
-
-                              final Offset localOffset =
-                                  dragTargetBox.globalToLocal(dropOffset);
-
-                              details.data.properties['dx'] = localOffset.dx;
-                              details.data.properties['dy'] = localOffset.dy;
-                              Logger().d(
-                                  'Droping widget initial DX and DY ::: Dx - ${localOffset.dx} Dy - ${localOffset.dy}');
-
                               context.read<ViewBuilderBloc>().add(
                                     RightSidePositionedWidgetEvent(
                                         widget: details.data),
@@ -97,10 +83,6 @@ class DropTargetState extends State<DropTarget> {
                                   final double bodyHeight =
                                       constraints.maxHeight;
                                   final double bodyWidth = constraints.maxWidth;
-
-                                  Logger().d(
-                                      'The Constraints Height and Width ::: Height - $bodyHeight Width - $bodyWidth');
-
                                   return Stack(
                                     children: state.rightSideWidgets
                                         .map((widgetModel) {
@@ -108,61 +90,46 @@ class DropTargetState extends State<DropTarget> {
                                           widgetModel.properties['dx'] ?? 0.0;
                                       final double dy =
                                           widgetModel.properties['dy'] ?? 0.0;
-                                      final double widgetHeight =
+                                      final double height =
                                           widgetModel.properties['height'] ??
-                                              10;
-                                      final double widgetWidth =
+                                              50.0;
+                                      final double width =
                                           widgetModel.properties['width'] ??
-                                              100;
+                                              100.0;
+                                      Rect rect = Rect.fromLTWH(
+                                          dx, dy, width + 10, height + 10);
 
-                                      return Positioned(
-                                        left: dx,
-                                        top: dy,
-                                        child: GestureDetector(
-                                          onPanUpdate: (details) {
-                                            setState(() {
-                                              double newDx =
-                                                  dx + details.delta.dx;
-                                              double newDy =
-                                                  dy + details.delta.dy;
+                                      return TransformableBox(
+                                        rect: rect,
+                                        clampingRect: Offset.zero &
+                                            Size(bodyWidth, bodyHeight),
+                                        onChanged: (result, event) {
+                                          rect = result.rect;
 
-                                              // Ensure the widget stays within bounds
-                                              if (newDx < 10) newDx = 10;
-                                              if (newDy < 10) newDy = 10;
-                                              if (newDx + widgetWidth >
-                                                  bodyWidth - 10) {
-                                                newDx = bodyWidth -
-                                                    widgetWidth -
-                                                    10;
-                                              }
-                                              if (newDy + widgetHeight >
-                                                  bodyHeight - 10) {
-                                                newDy = bodyHeight -
-                                                    widgetHeight -
-                                                    10;
-                                              }
-
-                                              widgetModel.properties['dx'] =
-                                                  newDx;
-                                              widgetModel.properties['dy'] =
-                                                  newDy;
-                                            });
-                                          },
-                                          onPanEnd: (details) {
-                                            context.read<ViewBuilderBloc>().add(
-                                                  SelectWidgetModelEvent(
-                                                      widgetModel: widgetModel),
-                                                );
-                                          },
-                                          onTap: () {
-                                            context.read<ViewBuilderBloc>().add(
-                                                  SelectWidgetModelEvent(
-                                                      widgetModel: widgetModel),
-                                                );
-                                          },
-                                          child: ResizableWidget(
-                                              widget: widgetModel),
-                                        ),
+                                          widgetModel.properties['height'] =
+                                              result.rect.height.round();
+                                          widgetModel.properties['width'] =
+                                              result.rect.width.round();
+                                          context.read<ViewBuilderBloc>().add(
+                                                SelectWidgetModelEvent(
+                                                    widgetModel: widgetModel),
+                                              );
+                                        },
+                                        contentBuilder: (context, rect, flip) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<ViewBuilderBloc>()
+                                                  .add(
+                                                    SelectWidgetModelEvent(
+                                                        widgetModel:
+                                                            widgetModel),
+                                                  );
+                                            },
+                                            child: ResizableWidget(
+                                                widget: widgetModel),
+                                          );
+                                        },
                                       );
                                     }).toList(),
                                   );
