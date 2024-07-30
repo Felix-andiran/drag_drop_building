@@ -1,4 +1,5 @@
 import 'package:dynamic_view/src/model/widget_model.dart';
+import 'package:dynamic_view/src/widgets/custom_card.dart';
 import 'package:dynamic_view/src/widgets/draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'nested_widget.dart';
@@ -74,6 +75,20 @@ class DataListWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const CustomerCard(
+                      width: 300,
+                      height: 150,
+                      title: 'Total Customer',
+                      value: '32,502',
+                      subtitle: '2.1% less than last month',
+                      titleFontSize: 16,
+                      valueFontSize: 32,
+                      subtitleFontSize: 14,
+                      titleColor: 0xFF757575,
+                      valueColor: 0xFF000000,
+                      subtitleColor: 0xFFFF0000,
+                      backgroundColor: 0xFFFFFFFF,
+                      iconColor: 0xFF808080),
                   ...viewWidgets,
                 ],
               ),

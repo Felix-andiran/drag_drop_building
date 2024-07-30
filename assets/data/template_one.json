@@ -1,0 +1,59 @@
+{
+    "template": "templateOne",
+    "data": [
+        {
+            "type": "customerCard",
+            "properties": {
+                "width": 300,
+                "height": 150,
+                "title": "Total Customer",
+                "value": "32,502",
+                "subtitle": "2.1% less than last month",
+                "titleFontSize": 16,
+                "valueFontSize": 32,
+                "subtitleFontSize": 14,
+                "titleColor": 757575,
+                "valueColor": "000000",
+                "subtitleColor": "FF0000",
+                "backgroundColor": "FFFFFF",
+                "iconColor": "808080"
+            }
+        },
+        {
+            "type": "customerCard",
+            "properties": {
+                "width": 300,
+                "height": 150,
+                "title": "Total Order",
+                "value": "40,284",
+                "subtitle": "8.2% greater than last month",
+                "titleFontSize": 16,
+                "valueFontSize": 32,
+                "subtitleFontSize": 14,
+                "titleColor": 757575,
+                "valueColor": "000000",
+                "subtitleColor": "FF0000",
+                "backgroundColor": "FFFFFF",
+                "iconColor": "808080"
+            }
+        },
+        {
+            "type": "customerCard",
+            "properties": {
+                "width": 300,
+                "height": 150,
+                "title": "Total Sales",
+                "value": "40,284",
+                "subtitle": "17.2% less than last month",
+                "titleFontSize": 16,
+                "valueFontSize": 32,
+                "subtitleFontSize": 14,
+                "titleColor": 757575,
+                "valueColor": "000000",
+                "subtitleColor": "FF0000",
+                "backgroundColor": "FFFFFF",
+                "iconColor": "808080"
+            }
+        }
+    ]
+}

@@ -70,6 +70,10 @@ class DropTargetState extends State<DropTarget> {
                           ),
                           body: DragTarget<WidgetModel>(
                             onAcceptWithDetails: (details) {
+                              details.data.properties['dx'] =
+                                  (state.width / 2) - 50;
+                              details.data.properties['dy'] =
+                                  state.height / 2 - 100;
                               context.read<ViewBuilderBloc>().add(
                                     RightSidePositionedWidgetEvent(
                                         widget: details.data),
