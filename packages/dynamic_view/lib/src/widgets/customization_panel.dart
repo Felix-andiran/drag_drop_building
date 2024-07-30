@@ -1,3 +1,4 @@
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
 import 'package:dynamic_view/src/model/widget_model.dart';
 import 'package:dynamic_view/src/widgets/custom_color_picker.dart';
@@ -86,7 +87,8 @@ class CustomizationPanelState extends State<CustomizationPanel> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.widget!.type == WidgetType.text) ...[
+                  if (widget.widget!.type ==
+                      widgetModelType(WidgetType.text)) ...[
                     TextField(
                       controller: _labelController,
                       onChanged: (value) {
@@ -150,7 +152,8 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                       },
                     ),
                   ],
-                  if (widget.widget!.type == WidgetType.button) ...[
+                  if (widget.widget!.type ==
+                      widgetModelType(WidgetType.button)) ...[
                     TextField(
                       controller: _labelController,
                       onChanged: (value) {
@@ -239,6 +242,139 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                             ChangePropertiesSelectedWidgetEvent(
                                 changedProperties: properties));
                       },
+                    ),
+                  ],
+                  if (widget.widget!.type ==
+                      widgetModelType(WidgetType.card)) ...[
+                    TextField(
+                      controller: _labelController,
+                      onChanged: (value) {
+                        properties['title'] = value;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration: const InputDecoration(labelText: 'Title'),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _labelFontSizeController,
+                      onChanged: (value) {
+                        properties['titleFontSize'] =
+                            double.tryParse(value) ?? 14.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration:
+                          const InputDecoration(labelText: 'Title Font Size'),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _valueFontSizeController,
+                      onChanged: (value) {
+                        properties['valueFontSize'] =
+                            double.tryParse(value) ?? 12.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration:
+                          const InputDecoration(labelText: 'Value Font Size'),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 10),
+                    CustomColorPicker(
+                      title: 'Select Title Color',
+                      pickerColor: int.parse(
+                          '0xFF${widget.widget!.properties['titleColor']}'),
+                      onColorChanged: (Color color) {
+                        properties['titleColor'] =
+                            int.parse("0x${color.toHexString()}");
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomColorPicker(
+                      title: 'Select Value Color',
+                      pickerColor: int.parse(
+                          '0xFF${widget.widget!.properties['valueColor']}'),
+                      onColorChanged: (Color color) {
+                        properties['valueColor'] =
+                            int.parse("0x${color.toHexString()}");
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomColorPicker(
+                      title: 'Select Subtitle Color',
+                      pickerColor: int.parse(
+                          '0xFF${widget.widget!.properties['subtitleColor']}'),
+                      onColorChanged: (Color color) {
+                        properties['subtitleColor'] =
+                            int.parse("0x${color.toHexString()}");
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomColorPicker(
+                      title: 'Select Background Color',
+                      pickerColor: int.parse(
+                          "0xFF${widget.widget!.properties['backgroundColor']}"),
+                      onColorChanged: (Color color) {
+                        properties['backgroundColor'] =
+                            int.parse("0x${color.toHexString()}");
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      readOnly: true,
+                      controller: _heightController,
+                      onChanged: (value) {
+                        properties['height'] = double.tryParse(value) ?? 50.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration: const InputDecoration(labelText: 'Height'),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      readOnly: true,
+                      controller: _widthController,
+                      onChanged: (value) {
+                        properties['width'] = double.tryParse(value) ?? 200.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration: const InputDecoration(labelText: 'Width'),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _borderRadiusController,
+                      onChanged: (value) {
+                        properties['borderRadius'] =
+                            double.tryParse(value) ?? 10.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration:
+                          const InputDecoration(labelText: 'Border Radius'),
+                      keyboardType: TextInputType.number,
                     ),
                   ],
                 ],

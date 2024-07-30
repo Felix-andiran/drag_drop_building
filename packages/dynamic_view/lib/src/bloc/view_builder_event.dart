@@ -57,16 +57,9 @@ class ChangePropertiesSelectedWidgetEvent extends ViewBuilderEvent {
   List<Object> get props => [changedProperties];
 }
 
-// class RightSideWidgetPositioningEvent extends ViewBuilderEvent {
-//   final double newDx;
-//   final double newDy;
-//   final Map<String, dynamic> changedProperties;
-//   const RightSideWidgetPositioningEvent({
-//     required this.newDx,
-//     required this.newDy,
-//     required this.changedProperties,
-//   });
-
-//   @override
-//   List<Object> get props => [newDx, newDy, changedProperties];
-// }
+final class GetTemplateData extends ViewBuilderEvent {
+  final String template;
+  const GetTemplateData({required this.template});
+  @override
+  List<Object> get props => [template];
+}

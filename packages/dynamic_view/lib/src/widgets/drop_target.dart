@@ -4,7 +4,6 @@ import 'package:dynamic_view/src/widgets/device_dropdown.dart';
 import 'package:dynamic_view/src/widgets/resizable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter_box_transform/flutter_box_transform.dart';
 
 class DropTarget extends StatefulWidget {

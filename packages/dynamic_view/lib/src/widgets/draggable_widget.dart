@@ -1,4 +1,4 @@
-import 'package:dynamic_view/src/model/widget_model.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class DraggableWidget extends StatelessWidget {
 
   Widget _buildChild() {
     switch (data.type) {
-      case WidgetType.text:
+      case 'text':
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Row(
@@ -45,7 +45,7 @@ class DraggableWidget extends StatelessWidget {
             ],
           ),
         );
-      case WidgetType.button:
+      case 'button':
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: ElevatedButton(
@@ -65,6 +65,21 @@ class DraggableWidget extends StatelessWidget {
             ),
           ),
         );
+      case 'card':
+        return const CustomerCard(
+            width: 300,
+            height: 150,
+            title: 'Total Customer',
+            value: '32,502',
+            subtitle: '2.1% less than last month',
+            titleFontSize: 16,
+            valueFontSize: 32,
+            subtitleFontSize: 14,
+            titleColor: 0xFF757575,
+            valueColor: 0xFF000000,
+            subtitleColor: 0xFFFF0000,
+            backgroundColor: 0xFFFFFFFF,
+            iconColor: 0xFF808080);
       default:
         return Container();
     }
@@ -72,7 +87,7 @@ class DraggableWidget extends StatelessWidget {
 
   Widget _buildFeedback() {
     switch (data.type) {
-      case WidgetType.text:
+      case 'text':
         return Material(
           elevation: 4.0,
           borderRadius: BorderRadius.circular(10),
@@ -86,7 +101,7 @@ class DraggableWidget extends StatelessWidget {
             ),
           ),
         );
-      case WidgetType.button:
+      case 'button':
         return Material(
           color: Colors.transparent,
           child: Container(

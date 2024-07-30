@@ -1,8 +1,7 @@
 import 'package:drag_drop_test/view_Builder/bloc/view_builder_bloc.dart';
+import 'package:dynamic_view/src/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:dynamic_view/dynamic_view_package.dart';
 
 class ViewBuilderPage extends StatefulWidget {
   const ViewBuilderPage({super.key});

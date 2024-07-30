@@ -1,8 +1,5 @@
-import 'package:dynamic_view/src/model/widget_model.dart';
-import 'package:dynamic_view/src/widgets/custom_card.dart';
-import 'package:dynamic_view/src/widgets/draggable_widget.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/material.dart';
-import 'nested_widget.dart';
 
 class DataListWidget extends StatelessWidget {
   const DataListWidget({super.key, required this.viewData});
@@ -21,19 +18,21 @@ class DataListWidget extends StatelessWidget {
             String form = entry.value['form'];
             String key = entry.key;
             return DraggableWidget(
-              data: WidgetModel(type: WidgetType.button, properties: {
-                'key': key,
-                'form': form,
-                'label': buttonLabel,
-                'labelSize': 14.0,
-                'color': 0xFF2196F3,
-                'labelColor': 0xFFE1E1E1,
-                'width': 100.0,
-                'height': 50.0,
-                'borderRadius': 10.0,
-                'dx': 0.0,
-                'dy': 0.0
-              }),
+              data: WidgetModel(
+                  type: widgetModelType(WidgetType.button),
+                  properties: {
+                    'key': key,
+                    'form': form,
+                    'label': buttonLabel,
+                    'labelSize': 14.0,
+                    'color': 0xFF2196F3,
+                    'labelColor': 0xFFE1E1E1,
+                    'width': 100.0,
+                    'height': 50.0,
+                    'borderRadius': 10.0,
+                    'dx': 0.0,
+                    'dy': 0.0
+                  }),
             );
           }).toList());
         } else {
@@ -48,7 +47,8 @@ class DataListWidget extends StatelessWidget {
         }
       } else {
         viewWidgets.add(DraggableWidget(
-          data: WidgetModel(type: WidgetType.text, properties: {
+          data:
+              WidgetModel(type: widgetModelType(WidgetType.text), properties: {
             'key': key,
             'label': key,
             'value': value,
@@ -75,20 +75,6 @@ class DataListWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const CustomerCard(
-                      width: 300,
-                      height: 150,
-                      title: 'Total Customer',
-                      value: '32,502',
-                      subtitle: '2.1% less than last month',
-                      titleFontSize: 16,
-                      valueFontSize: 32,
-                      subtitleFontSize: 14,
-                      titleColor: 0xFF757575,
-                      valueColor: 0xFF000000,
-                      subtitleColor: 0xFFFF0000,
-                      backgroundColor: 0xFFFFFFFF,
-                      iconColor: 0xFF808080),
                   ...viewWidgets,
                 ],
               ),

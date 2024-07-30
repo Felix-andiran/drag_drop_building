@@ -1,23 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:dynamic_view/src/model/device_option.dart';
 import 'package:dynamic_view/src/model/widget_model.dart';
+import 'package:dynamic_view/src/repo/view_builder_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
 part 'view_builder_event.dart';
 part 'view_builder_state.dart';
 
 class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
-  ViewBuilderBloc() : super(ViewBuilderState.initial) {
+  ViewBuilderBloc({required TemplateRepository templateRepository})
+      : _templateRepository = templateRepository,
+        super(ViewBuilderState.initial) {
     on<DeviceOptionEvent>(_changeDeviceOptionToState);
     on<RightSidePositionedWidgetEvent>(_insertRightSideWidgetToState);
     on<RemoveRightSideWidgetEvent>(_removeRightSideWidgetFromState);
     on<SelectWidgetModelEvent>(_selectWidgetModelFromState);
     on<ChangePropertiesSelectedWidgetEvent>(
         _changeSelectWidgetPropertiesFromState);
-    // on<RightSideWidgetPositioningEvent>(_changeSelectWidgetPositionsFromState);
+    on<GetTemplateData>(_updateTemplateDataToState);
   }
+
+  final TemplateRepository _templateRepository;
 
   final log = Logger();
 
@@ -61,8 +67,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
             rightSideWidgets: newRightSideWidgets,
             status: ViewBuilderStatus.loaded));
       } else {
-        emit(state.copyWith(
-            status: ViewBuilderStatus.loaded)); // No change in the list
+        emit(state.copyWith(status: ViewBuilderStatus.loaded));
       }
     } catch (error) {
       log.e("Load Favorite Data Event::Setting state to failure::::$error");
@@ -101,7 +106,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
       log.d(
-          "Selected Widget Model from right side widgets ::: ${event.widgetModel!.properties}");
+          "Selected Widget Model from right side widgets ::: ${event.widgetModel.properties}");
 
       emit(state.copyWith(
           selectedWidget: event.widgetModel, status: ViewBuilderStatus.loaded));
@@ -148,61 +153,35 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  // Future<void> _changeSelectWidgetPositionsFromState(
-  //     RightSideWidgetPositioningEvent event,
-  //     Emitter<ViewBuilderState> emit) async {
-  //   emit(state.copyWith(status: ViewBuilderStatus.loading));
-  //   try {
-  //     List<WidgetModel> newRightSideWidgets =
-  //         List<WidgetModel>.from(state.rightSideWidgets);
+  Future<void> _updateTemplateDataToState(
+      GetTemplateData event, Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      // Load the asset data
+      final getTemplateData =
+          await _templateRepository.getTemplateOneJsonData(event.template);
 
-  //     int indexOfWidgetModel = newRightSideWidgets.indexWhere((widget) =>
-  //         widget.properties['key'] == event.changedProperties['key']);
-  //     log.d("Index of the widget to change properties: $indexOfWidgetModel");
+      // Parse the JSON data into WidgetModel instances
+      final List<dynamic> jsonDataList = getTemplateData['data'];
+      final List<WidgetModel> templateModelList = jsonDataList
+          .map((json) => WidgetModel.fromJson(json as Map<String, dynamic>))
+          .toList();
 
-  //     if (indexOfWidgetModel == -1) {
-  //       throw RangeError(
-  //           'Widget with key ${event.changedProperties['key']} not found');
-  //     }
+      // Create a new list with the current widgets and the new template data
+      final List<WidgetModel> updatedTemplateModelList =
+          List.from(state.rightSideWidgets)..addAll(templateModelList);
 
-  //     var widgetModel = newRightSideWidgets[indexOfWidgetModel];
-  //     var widgetProperties = widgetModel.properties;
-
-  //     double dx = widgetProperties['dx'] ?? 0.0;
-  //     double dy = widgetProperties['dy'] ?? 0.0;
-  //     double widgetWidth = widgetProperties['width'] ?? 0.0;
-  //     double widgetHeight = widgetProperties['height'] ?? 0.0;
-  //     double newDx = dx + event.newDx;
-  //     double newDy = dy + event.newDy;
-
-  //     double bodyWidth = state.width;
-  //     double bodyHeight = state.height;
-  //     if (newDx < 5) newDx = 5;
-  //     if (newDy < 5) newDy = 5;
-  //     if (newDx + widgetWidth > bodyWidth - 5) {
-  //       newDx = bodyWidth - widgetWidth - 5;
-  //     }
-  //     if (newDy + widgetHeight > bodyHeight - 5) {
-  //       newDy = bodyHeight - widgetHeight - 5;
-  //     }
-
-  //     widgetProperties['dx'] = newDx;
-  //     widgetProperties['dy'] = newDy;
-
-  //     widgetModel.properties = {
-  //       ...widgetProperties,
-  //       ...event.changedProperties,
-  //     };
-
-  //     emit(state.copyWith(
-  //         rightSideWidgets: newRightSideWidgets,
-  //         status: ViewBuilderStatus.loaded));
-  //   } catch (error) {
-  //     log.e(
-  //         "Change Properties Selected Widget Event::Setting state to failure::::$error");
-  //     emit(state.copyWith(
-  //         status: ViewBuilderStatus.error,
-  //         message: 'Failed to change properties: $error'));
-  //   }
-  // }
+      // Emit the new state with the updated list
+      emit(state.copyWith(
+        rightSideWidgets: updatedTemplateModelList,
+        status: ViewBuilderStatus.loaded,
+      ));
+    } catch (error) {
+      log.e("Template Data Event::Setting state to failure::::$error");
+      emit(state.copyWith(
+        status: ViewBuilderStatus.error,
+        message: 'Failed to fetch template data: $error',
+      ));
+    }
+  }
 }

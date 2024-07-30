@@ -1,5 +1,4 @@
-import 'package:dynamic_view/src/model/widget_model.dart';
-import 'package:dynamic_view/src/widgets/draggable_widget.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/material.dart';
 
 class NestedWidget extends StatelessWidget {
@@ -10,7 +9,7 @@ class NestedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableWidget(
-      data: WidgetModel(type: WidgetType.text, properties: {
+      data: WidgetModel(type: widgetModelType(WidgetType.text), properties: {
         'key': keyString,
         'label': keyString,
         'value': value,

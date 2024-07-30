@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CustomerCard extends StatelessWidget {
   final double width;
   final double height;
@@ -59,10 +58,10 @@ class CustomerCard extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Icon(
-                  Icons.more_vert,
-                  color: Color(iconColor),
-                ),
+                // Icon(
+                //   Icons.more_vert,
+                //   color: Color(iconColor),
+                // ),
               ],
             ),
             const SizedBox(height: 16),

@@ -1,4 +1,5 @@
 import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
+import 'package:dynamic_view/src/repo/repo.dart';
 import 'package:dynamic_view/src/widgets/customization_panel.dart';
 import 'package:dynamic_view/src/widgets/data_list_widget.dart';
 import 'package:dynamic_view/src/widgets/drop_target.dart';
@@ -18,12 +19,24 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ViewBuilderBloc(),
+      create: (context) =>
+          ViewBuilderBloc(templateRepository: TemplateRepository()),
       child: BlocBuilder<ViewBuilderBloc, ViewBuilderState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Custom View Builder'),
+              actions: [
+                TextButton.icon(
+                  onPressed: () {
+                    context.read<ViewBuilderBloc>().add(
+                          const GetTemplateData(template: 'template_one'),
+                        );
+                  },
+                  label: const Text('Load Template'),
+                  icon: const Icon(Icons.upload),
+                )
+              ],
             ),
             body: Row(
               children: [
