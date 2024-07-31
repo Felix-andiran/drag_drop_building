@@ -124,6 +124,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
+      log.d(event.changedProperties);
       List<WidgetModel> newRightSideWidgets =
           List<WidgetModel>.from(state.rightSideWidgets);
 

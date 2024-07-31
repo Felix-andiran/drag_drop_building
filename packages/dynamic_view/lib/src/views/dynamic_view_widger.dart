@@ -41,14 +41,14 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
             body: Row(
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: DataListWidget(
                     viewData: widget.viewData,
                   ),
                 ),
                 const Expanded(flex: 3, child: DropTarget()),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: CustomizationPanel(
                     widget: state.selectedWidget,
                   ),

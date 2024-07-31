@@ -30,7 +30,7 @@ class DraggableWidget extends StatelessWidget {
               Text(
                 '${data.properties['label'].toUpperCase()} : ',
                 style: TextStyle(
-                    color: Color(data.properties['labelColor']),
+                    color: Color(int.parse(data.properties['labelColor'])),
                     fontWeight: FontWeight.bold,
                     fontSize: data.properties['labelSize']),
               ),
@@ -38,7 +38,7 @@ class DraggableWidget extends StatelessWidget {
                 data.properties['value'].toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    color: Color(data.properties['valueColor']),
+                    color: Color(int.parse(data.properties['valueColor'])),
                     fontSize: data.properties['valueSize'],
                     overflow: TextOverflow.ellipsis),
               ),
@@ -50,8 +50,8 @@ class DraggableWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: ElevatedButton(
             style: ButtonStyle(
-                backgroundColor:
-                    WidgetStatePropertyAll(Color(data.properties['color']))),
+                backgroundColor: WidgetStatePropertyAll(
+                    Color(int.parse(data.properties['color'])))),
             onPressed: () {
               if (kDebugMode) {
                 print(data.properties['form']);
@@ -60,26 +60,27 @@ class DraggableWidget extends StatelessWidget {
             child: Text(
               data.properties['label'],
               style: TextStyle(
-                  color: Color(data.properties['labelColor']),
+                  color: Color(int.parse(data.properties['labelColor'])),
                   fontSize: data.properties['labelSize']),
             ),
           ),
         );
       case 'card':
         return const CustomerCard(
-            width: 300,
-            height: 150,
-            title: 'Total Customer',
-            value: '32,502',
-            subtitle: '2.1% less than last month',
-            titleFontSize: 16,
-            valueFontSize: 32,
-            subtitleFontSize: 14,
-            titleColor: 0xFF757575,
-            valueColor: 0xFF000000,
-            subtitleColor: 0xFFFF0000,
-            backgroundColor: 0xFFFFFFFF,
-            iconColor: 0xFF808080);
+          width: 300,
+          height: 150,
+          title: 'Total Customer',
+          value: '32,502',
+          subtitle: '2.1% less than last month',
+          titleFontSize: 16,
+          valueFontSize: 32,
+          subtitleFontSize: 14,
+          titleColor: "0xFF757575",
+          valueColor: "0xFF000000",
+          subtitleColor: "0xFFFF0000",
+          backgroundColor: "0xFFFFFFFF",
+          borderRadius: 10,
+        );
       default:
         return Container();
     }
@@ -97,7 +98,7 @@ class DraggableWidget extends StatelessWidget {
               data.properties['label'].toString().toUpperCase(),
               style: TextStyle(
                   fontSize: data.properties['labelSize'],
-                  color: Color(data.properties['labelColor'])),
+                  color: Color(int.parse(data.properties['labelColor']))),
             ),
           ),
         );
@@ -108,12 +109,12 @@ class DraggableWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                     Radius.circular(data.properties['borderRadius'])),
-                color: Color(data.properties['color'])),
+                color: Color(int.parse(data.properties['color']))),
             padding: const EdgeInsets.all(8.0),
             child: Text(
               data.properties['label'],
               style: TextStyle(
-                  color: Color(data.properties['labelColor']),
+                  color: Color(int.parse(data.properties['labelColor'])),
                   fontSize: data.properties['labelSize']),
             ),
           ),

@@ -26,7 +26,9 @@ class ResizableWidgetState extends State<ResizableWidget> {
               Text(
                 '${widget.widget.properties['label'].toUpperCase()} : ',
                 style: TextStyle(
-                    color: Color(widget.widget.properties['labelColor']),
+                    color: Color(
+                        int.parse(widget.widget.properties['labelColor'])
+                            .toInt()),
                     fontWeight: FontWeight.bold,
                     fontSize: widget.widget.properties['labelSize']),
               ),
@@ -34,7 +36,9 @@ class ResizableWidgetState extends State<ResizableWidget> {
                 widget.widget.properties['value'].toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    color: Color(widget.widget.properties['valueColor']),
+                    color: Color(
+                        int.parse(widget.widget.properties['valueColor'])
+                            .toInt()),
                     fontSize: widget.widget.properties['valueSize'],
                     overflow: TextOverflow.ellipsis),
               ),
@@ -52,7 +56,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
               borderRadius: BorderRadius.all(
                   Radius.circular(widget.widget.properties['borderRadius'])),
               shape: BoxShape.rectangle,
-              color: Color(widget.widget.properties['color']),
+              color:
+                  Color(int.parse(widget.widget.properties['color']).toInt()),
             ),
             child: Center(
               child: Text(
@@ -60,7 +65,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: widget.widget.properties['labelSize'],
-                  color: Color(widget.widget.properties['labelColor']),
+                  color: Color(int.parse(widget.widget.properties['labelColor'])
+                      .toInt()),
                 ),
               ),
             ),
@@ -69,24 +75,20 @@ class ResizableWidgetState extends State<ResizableWidget> {
         break;
       case 'card':
         widgetContent = CustomerCard(
-            width: widget.widget.properties['width'],
-            height: widget.widget.properties['height'],
-            title: widget.widget.properties['title'],
-            value: widget.widget.properties['value'],
-            subtitle: widget.widget.properties['subtitle'],
-            titleFontSize: widget.widget.properties['titleFontSize'],
-            valueFontSize: widget.widget.properties['valueFontSize'],
-            subtitleFontSize: widget.widget.properties['subtitleFontSize'],
-            titleColor:
-                int.parse('0xFF${widget.widget.properties['titleColor']}'),
-            valueColor:
-                int.parse('0xFF${widget.widget.properties['valueColor']}'),
-            subtitleColor:
-                int.parse('0xFF${widget.widget.properties['subtitleColor']}'),
-            backgroundColor:
-                int.parse('0xFF${widget.widget.properties['backgroundColor']}'),
-            iconColor:
-                int.parse('0xFF${widget.widget.properties['iconColor']}'));
+          width: widget.widget.properties['width'],
+          height: widget.widget.properties['height'],
+          title: widget.widget.properties['title'],
+          value: widget.widget.properties['value'],
+          subtitle: widget.widget.properties['subtitle'],
+          titleFontSize: widget.widget.properties['titleFontSize'],
+          valueFontSize: widget.widget.properties['valueFontSize'],
+          subtitleFontSize: widget.widget.properties['subtitleFontSize'],
+          titleColor: widget.widget.properties['titleColor'],
+          valueColor: widget.widget.properties['valueColor'],
+          subtitleColor: widget.widget.properties['subtitleColor'],
+          backgroundColor: widget.widget.properties['backgroundColor'],
+          borderRadius: widget.widget.properties['borderRadius'],
+        );
         break;
       default:
         widgetContent = const SizedBox.shrink();
