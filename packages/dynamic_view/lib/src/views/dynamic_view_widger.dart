@@ -1,8 +1,4 @@
-import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
-import 'package:dynamic_view/src/repo/repo.dart';
-import 'package:dynamic_view/src/widgets/customization_panel.dart';
-import 'package:dynamic_view/src/widgets/data_list_widget.dart';
-import 'package:dynamic_view/src/widgets/drop_target.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,10 +19,37 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
           ViewBuilderBloc(templateRepository: TemplateRepository()),
       child: BlocBuilder<ViewBuilderBloc, ViewBuilderState>(
         builder: (context, state) {
+          void showPreviewDialog() {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return FullScreenPreviewDialog(state: state);
+              },
+            );
+          }
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Custom View Builder'),
               actions: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                    shape: WidgetStateProperty.all<CircleBorder>(
+                      const CircleBorder(),
+                    ),
+                    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.all(12.0),
+                    ),
+                    minimumSize: WidgetStateProperty.all<Size>(
+                      const Size(24.0, 24.0),
+                    ),
+                  ),
+                  onPressed: () => context.read<ViewBuilderBloc>().add(
+                        const ResetRightSideWidget(),
+                      ),
+                  child: const Icon(Icons.restart_alt_rounded),
+                ),
+                PreviewButton(onPressed: showPreviewDialog),
                 TextButton.icon(
                   onPressed: () {
                     context.read<ViewBuilderBloc>().add(

@@ -21,6 +21,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     on<ChangePropertiesSelectedWidgetEvent>(
         _changeSelectWidgetPropertiesFromState);
     on<GetTemplateData>(_updateTemplateDataToState);
+    on<ResetRightSideWidget>(_resetRightSideWidgets);
   }
 
   final TemplateRepository _templateRepository;
@@ -158,21 +159,17 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       GetTemplateData event, Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
-      // Load the asset data
       final getTemplateData =
           await _templateRepository.getTemplateOneJsonData(event.template);
 
-      // Parse the JSON data into WidgetModel instances
       final List<dynamic> jsonDataList = getTemplateData['data'];
       final List<WidgetModel> templateModelList = jsonDataList
           .map((json) => WidgetModel.fromJson(json as Map<String, dynamic>))
           .toList();
 
-      // Create a new list with the current widgets and the new template data
       final List<WidgetModel> updatedTemplateModelList =
           List.from(state.rightSideWidgets)..addAll(templateModelList);
 
-      // Emit the new state with the updated list
       emit(state.copyWith(
         rightSideWidgets: updatedTemplateModelList,
         status: ViewBuilderStatus.loaded,
@@ -183,6 +180,22 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
         status: ViewBuilderStatus.error,
         message: 'Failed to fetch template data: $error',
       ));
+    }
+  }
+
+  Future<void> _resetRightSideWidgets(
+      ResetRightSideWidget event, Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      List<WidgetModel> resetWidgets = [];
+
+      emit(state.copyWith(
+          rightSideWidgets: resetWidgets, status: ViewBuilderStatus.loaded));
+    } catch (error) {
+      log.e("Error during reset:: $error");
+      emit(state.copyWith(
+          status: ViewBuilderStatus.error,
+          message: 'Failed to reset widgets: $error'));
     }
   }
 }

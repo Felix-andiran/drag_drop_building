@@ -45,9 +45,9 @@ class CustomizationPanelState extends State<CustomizationPanel> {
           text: widget.widget?.properties['titleFontSize']?.toString() ?? '16');
       _valueFontSizeController = TextEditingController(
           text: widget.widget?.properties['valueFontSize']?.toString() ?? '32');
-      // _subTitleFontSizeController = TextEditingController(
-      //     text: widget.widget?.properties['subtitleFontSize']?.toString() ??
-      //         '14');
+      _subTitleFontSizeController = TextEditingController(
+          text: widget.widget?.properties['subTitleFontSize']?.toString() ??
+              '14');
       _widthController = TextEditingController(
           text: widget.widget?.properties['width']?.toString() ?? '200');
       _heightController = TextEditingController(
@@ -326,20 +326,20 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                                 changedProperties: properties));
                       },
                     ),
-                    // const SizedBox(height: 10),
-                    // TextField(
-                    //   controller: _subTitleFontSizeController,
-                    //   onChanged: (value) {
-                    //     properties['subtitleFontSize'] =
-                    //         double.tryParse(value) ?? 14.0;
-                    //     context.read<ViewBuilderBloc>().add(
-                    //         ChangePropertiesSelectedWidgetEvent(
-                    //             changedProperties: properties));
-                    //   },
-                    //   decoration: const InputDecoration(
-                    //       labelText: 'Subtitle Font Size'),
-                    //   keyboardType: TextInputType.number,
-                    // ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _subTitleFontSizeController,
+                      onChanged: (value) {
+                        properties['subTitleFontSize'] =
+                            double.tryParse(value) ?? 14.0;
+                        context.read<ViewBuilderBloc>().add(
+                            ChangePropertiesSelectedWidgetEvent(
+                                changedProperties: properties));
+                      },
+                      decoration: const InputDecoration(
+                          labelText: 'Subtitle Font Size'),
+                      keyboardType: TextInputType.number,
+                    ),
                     const SizedBox(height: 10),
                     CustomColorPicker(
                       title: 'Select Subtitle Color',

@@ -63,3 +63,9 @@ final class GetTemplateData extends ViewBuilderEvent {
   @override
   List<Object> get props => [template];
 }
+
+final class ResetRightSideWidget extends ViewBuilderEvent {
+  const ResetRightSideWidget();
+  @override
+  List<Object> get props => [];
+}

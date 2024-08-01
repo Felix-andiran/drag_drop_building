@@ -8,3 +8,4 @@ export 'draggable_widget.dart';
 export 'drop_target.dart';
 export 'nested_widget.dart';
 export 'resizable_widget.dart';
+export 'preview_dialogue.dart';

@@ -82,7 +82,7 @@ class ResizableWidgetState extends State<ResizableWidget> {
           subtitle: widget.widget.properties['subtitle'],
           titleFontSize: widget.widget.properties['titleFontSize'],
           valueFontSize: widget.widget.properties['valueFontSize'],
-          subtitleFontSize: widget.widget.properties['subtitleFontSize'],
+          subTitleFontSize: widget.widget.properties['subTitleFontSize'],
           titleColor: widget.widget.properties['titleColor'],
           valueColor: widget.widget.properties['valueColor'],
           subtitleColor: widget.widget.properties['subtitleColor'],

@@ -74,7 +74,7 @@ class DraggableWidget extends StatelessWidget {
           subtitle: '2.1% less than last month',
           titleFontSize: 16,
           valueFontSize: 32,
-          subtitleFontSize: 14,
+          subTitleFontSize: 14,
           titleColor: "0xFF757575",
           valueColor: "0xFF000000",
           subtitleColor: "0xFFFF0000",
