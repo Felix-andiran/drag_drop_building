@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
 import 'package:dynamic_view/src/model/widget_model.dart';
 import 'package:dynamic_view/src/widgets/device_dropdown.dart';
@@ -92,9 +94,21 @@ class DropTargetState extends State<DropTarget> {
                                           .copyWith(scrollbars: false),
                                       child: SingleChildScrollView(
                                         child: SizedBox(
-                                          height: state.height,
-                                          width: state.width,
+                                          height: max(
+                                              state.rightSideWidgets
+                                                  .fold<double>(
+                                                0.0,
+                                                (sum, widgetModel) =>
+                                                    sum +
+                                                    (widgetModel.properties[
+                                                            'height'] ??
+                                                        0.0) +
+                                                    10,
+                                              ),
+                                              bodyHeight),
+                                          width: bodyWidth,
                                           child: Stack(
+                                            fit: StackFit.passthrough,
                                             children: state.rightSideWidgets
                                                 .map((widgetModel) {
                                               final double dx = widgetModel
@@ -115,7 +129,21 @@ class DropTargetState extends State<DropTarget> {
                                               return TransformableBox(
                                                 rect: rect,
                                                 clampingRect: Offset.zero &
-                                                    Size(bodyWidth, bodyHeight),
+                                                    Size(
+                                                        bodyWidth,
+                                                        max(
+                                                            state
+                                                                .rightSideWidgets
+                                                                .fold<double>(
+                                                              0.0,
+                                                              (sum, widgetModel) =>
+                                                                  sum +
+                                                                  (widgetModel.properties[
+                                                                          'height'] ??
+                                                                      0.0) +
+                                                                  10,
+                                                            ),
+                                                            bodyHeight)),
                                                 onChanged: (result, event) {
                                                   rect = result.rect;
                                                   widgetModel.properties['dx'] =

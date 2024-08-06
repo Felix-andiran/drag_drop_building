@@ -55,6 +55,7 @@ dependencies:
   dynamic_view:
     path: packages/dynamic_view
   flutter_box_transform: ^0.4.4
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:

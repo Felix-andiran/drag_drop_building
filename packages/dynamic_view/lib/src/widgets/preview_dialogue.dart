@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_box_transform/flutter_box_transform.dart';
@@ -43,7 +45,15 @@ class FullScreenPreviewDialog extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: state.height,
+                      height: max(
+                          state.rightSideWidgets.fold<double>(
+                            0.0,
+                            (sum, widgetModel) =>
+                                sum +
+                                (widgetModel.properties['height'] ?? 0.0) +
+                                10,
+                          ),
+                          state.height),
                       width: state.width,
                       child: Stack(
                         children: List.generate(
@@ -61,8 +71,17 @@ class FullScreenPreviewDialog extends StatelessWidget {
                             return TransformableBox(
                               rect: rect,
                               resizable: false,
-                              clampingRect:
-                                  Offset.zero & Size(state.width, state.height),
+                              clampingRect: Offset.zero &
+                                  Size(
+                                      state.width,
+                                      state.rightSideWidgets.fold<double>(
+                                        0.0,
+                                        (sum, widgetModel) =>
+                                            sum +
+                                            (widgetModel.properties['height'] ??
+                                                0.0) +
+                                            10,
+                                      )),
                               onChanged: (result, event) {},
                               contentBuilder: (context, rect, flip) {
                                 return PreviewBodyWidget(widget: widgetModel);

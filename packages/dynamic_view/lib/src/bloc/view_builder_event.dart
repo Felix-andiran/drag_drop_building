@@ -69,3 +69,17 @@ final class ResetRightSideWidget extends ViewBuilderEvent {
   @override
   List<Object> get props => [];
 }
+
+final class LeftPanelViewEvent extends ViewBuilderEvent {
+  const LeftPanelViewEvent({required this.openOrClose});
+  final bool openOrClose;
+  @override
+  List<Object> get props => [openOrClose];
+}
+
+final class RightPanelViewEvent extends ViewBuilderEvent {
+  const RightPanelViewEvent({required this.openOrClose});
+  final bool openOrClose;
+  @override
+  List<Object> get props => [openOrClose];
+}

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:dynamic_view/src/model/device_option.dart';
 import 'package:dynamic_view/src/model/widget_model.dart';
@@ -21,7 +23,9 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     on<ChangePropertiesSelectedWidgetEvent>(
         _changeSelectWidgetPropertiesFromState);
     on<GetTemplateData>(_updateTemplateDataToState);
-    on<ResetRightSideWidget>(_resetRightSideWidgets);
+    on<ResetRightSideWidget>(_resetRightSideWidgetsToState);
+    on<RightPanelViewEvent>(_changeRightPanelExpandToState);
+    on<LeftPanelViewEvent>(_changeLeftPanelExpandToState);
   }
 
   final TemplateRepository _templateRepository;
@@ -183,7 +187,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  Future<void> _resetRightSideWidgets(
+  Future<void> _resetRightSideWidgetsToState(
       ResetRightSideWidget event, Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
@@ -196,6 +200,34 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       emit(state.copyWith(
           status: ViewBuilderStatus.error,
           message: 'Failed to reset widgets: $error'));
+    }
+  }
+
+  Future<void> _changeRightPanelExpandToState(
+      RightPanelViewEvent event, Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      emit(state.copyWith(
+          rightPanelView: event.openOrClose, status: ViewBuilderStatus.loaded));
+    } catch (error) {
+      log.e("Error during Changing Right Panel Bool:: $error");
+      emit(state.copyWith(
+          status: ViewBuilderStatus.error,
+          message: 'Failed to Change Right Panel Bool: $error'));
+    }
+  }
+
+  Future<void> _changeLeftPanelExpandToState(
+      LeftPanelViewEvent event, Emitter<ViewBuilderState> emit) async {
+    emit(state.copyWith(status: ViewBuilderStatus.loading));
+    try {
+      emit(state.copyWith(
+          leftPanelView: event.openOrClose, status: ViewBuilderStatus.loaded));
+    } catch (error) {
+      log.e("Error during Changing Left Panel Bool:: $error");
+      emit(state.copyWith(
+          status: ViewBuilderStatus.error,
+          message: 'Failed to Change Left Panel Bool: $error'));
     }
   }
 }
