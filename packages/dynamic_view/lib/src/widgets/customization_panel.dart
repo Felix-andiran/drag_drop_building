@@ -111,6 +111,9 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                       controller: _labelController,
                       onChanged: (value) {
                         properties['label'] = value;
+                        String valueText = properties['value'];
+                        properties['width'] =
+                            ((valueText.length + value.length) * 8) + 30;
                         context.read<ViewBuilderBloc>().add(
                             ChangePropertiesSelectedWidgetEvent(
                                 changedProperties: properties));
@@ -176,6 +179,7 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                       controller: _labelController,
                       onChanged: (value) {
                         properties['label'] = value;
+                        properties['width'] = (value.length * 8) + 30;
                         context.read<ViewBuilderBloc>().add(
                             ChangePropertiesSelectedWidgetEvent(
                                 changedProperties: properties));

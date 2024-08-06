@@ -53,7 +53,7 @@ class DataListWidget extends StatelessWidget {
             'label': key,
             'value': value,
             'width': 100.0,
-            'height': 50.0,
+            'height': 30.0,
             'labelSize': 14.0,
             'valueSize': 12.0,
             'labelColor': "0xFF2196F3",

@@ -1,9 +1,6 @@
 import 'dart:math';
 
-import 'package:dynamic_view/src/bloc/view_builder_bloc.dart';
-import 'package:dynamic_view/src/model/widget_model.dart';
-import 'package:dynamic_view/src/widgets/device_dropdown.dart';
-import 'package:dynamic_view/src/widgets/resizable_widget.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_box_transform/flutter_box_transform.dart';
@@ -75,6 +72,21 @@ class DropTargetState extends State<DropTarget> {
                                   (state.width / 2) - 50;
                               details.data.properties['dy'] =
                                   state.height / 2 - 100;
+                              double width = details.data.properties['width'];
+                              if (details.data.type ==
+                                  widgetModelType(WidgetType.button)) {
+                                String label = details.data.properties['label'];
+                                width = (label.length * 8) + 30;
+                              }
+                              if (details.data.type ==
+                                  widgetModelType(WidgetType.text)) {
+                                String label = details.data.properties['label'];
+                                String value = details.data.properties['value'];
+                                width = (((label.length * 8) +
+                                        (value.length * 8))) +
+                                    30;
+                              }
+                              details.data.properties['width'] = width;
                               context.read<ViewBuilderBloc>().add(
                                     RightSidePositionedWidgetEvent(
                                         widget: details.data),
@@ -120,9 +132,9 @@ class DropTargetState extends State<DropTarget> {
                                               final double height = widgetModel
                                                       .properties['height'] ??
                                                   50.0;
-                                              final double width = widgetModel
-                                                      .properties['width'] ??
-                                                  100.0;
+                                              double width = widgetModel
+                                                  .properties['width'];
+
                                               Rect rect = Rect.fromLTWH(
                                                   dx, dy, width, height);
 
@@ -176,6 +188,14 @@ class DropTargetState extends State<DropTarget> {
                                                             SelectWidgetModelEvent(
                                                                 widgetModel:
                                                                     widgetModel),
+                                                          );
+                                                      context
+                                                          .read<
+                                                              ViewBuilderBloc>()
+                                                          .add(
+                                                            const RightPanelViewEvent(
+                                                                openOrClose:
+                                                                    true),
                                                           );
                                                     },
                                                     child: ResizableWidget(
