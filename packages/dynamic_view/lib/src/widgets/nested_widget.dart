@@ -20,7 +20,9 @@ class NestedWidget extends StatelessWidget {
         'labelColor': "0xFF2196F3",
         'valueColor': "0xFF000000",
         'dx': 0.0,
-        'dy': 0.0
+        'dy': 0.0,
+        'paddingDx': 8.0,
+        'paddingDy': 4.0
       }),
     );
   }

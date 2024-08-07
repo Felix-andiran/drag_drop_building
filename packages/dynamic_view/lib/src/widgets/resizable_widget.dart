@@ -20,7 +20,9 @@ class ResizableWidgetState extends State<ResizableWidget> {
     switch (widgetType) {
       case 'text':
         widgetContent = Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: EdgeInsets.symmetric(
+              horizontal: widget.widget.properties['paddingDx'],
+              vertical: widget.widget.properties['paddingDy']),
           child: Row(
             children: [
               Text(
@@ -48,7 +50,9 @@ class ResizableWidgetState extends State<ResizableWidget> {
         break;
       case 'button':
         widgetContent = Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: EdgeInsets.symmetric(
+              horizontal: widget.widget.properties['paddingDx'],
+              vertical: widget.widget.properties['paddingDy']),
           child: Container(
             height: widget.widget.properties['height'],
             width: widget.widget.properties['width'],
@@ -77,6 +81,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
         widgetContent = CustomerCard(
           width: widget.widget.properties['width'],
           height: widget.widget.properties['height'],
+          paddingDx: widget.widget.properties['paddingDx'],
+          paddingDy: widget.widget.properties['paddingDy'],
           title: widget.widget.properties['title'],
           value: widget.widget.properties['value'],
           subtitle: widget.widget.properties['subtitle'],

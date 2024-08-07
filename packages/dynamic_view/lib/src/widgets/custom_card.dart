@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class CustomerCard extends StatelessWidget {
   final double width;
   final double height;
+  final double paddingDx;
+  final double paddingDy;
   final double borderRadius;
   final String title;
   final String value;
@@ -19,6 +21,8 @@ class CustomerCard extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.paddingDx,
+    required this.paddingDy,
     required this.borderRadius,
     required this.title,
     required this.value,
@@ -43,7 +47,7 @@ class CustomerCard extends StatelessWidget {
         width: width,
         height: height,
         color: Color(int.parse(backgroundColor)),
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.symmetric(horizontal: paddingDx,vertical: paddingDy),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

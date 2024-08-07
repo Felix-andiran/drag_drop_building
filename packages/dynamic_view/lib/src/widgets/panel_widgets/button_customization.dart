@@ -21,6 +21,8 @@ class _ButtonCustomizationState extends State<ButtonCustomization> {
   late TextEditingController _heightController;
   late TextEditingController _widthController;
   late TextEditingController _borderRadiusController;
+  late TextEditingController _paddingDxController;
+  late TextEditingController _paddingDyController;
 
   @override
   void initState() {
@@ -50,6 +52,10 @@ class _ButtonCustomizationState extends State<ButtonCustomization> {
         text: widget.widget?.properties['height']?.toString() ?? '50');
     _borderRadiusController = TextEditingController(
         text: widget.widget?.properties['borderRadius']?.toString() ?? '10');
+    _paddingDxController = TextEditingController(
+        text: widget.widget?.properties['paddingDx']?.toString() ?? '8');
+    _paddingDyController = TextEditingController(
+        text: widget.widget?.properties['paddingDy']?.toString() ?? '4');
   }
 
   void _updateControllers() {
@@ -67,6 +73,8 @@ class _ButtonCustomizationState extends State<ButtonCustomization> {
     _heightController.dispose();
     _widthController.dispose();
     _borderRadiusController.dispose();
+    _paddingDxController.dispose();
+    _paddingDyController.dispose();
     super.dispose();
   }
 
@@ -140,6 +148,31 @@ class _ButtonCustomizationState extends State<ButtonCustomization> {
                         changedProperties: properties));
               },
               decoration: const InputDecoration(labelText: 'Height'),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _paddingDxController,
+              onChanged: (value) {
+                properties['paddingDx'] = double.tryParse(value) ?? 12.0;
+                context.read<ViewBuilderBloc>().add(
+                    ChangePropertiesSelectedWidgetEvent(
+                        changedProperties: properties));
+              },
+              decoration:
+                  const InputDecoration(labelText: 'Horizontal Padding'),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _paddingDyController,
+              onChanged: (value) {
+                properties['paddingDy'] = double.tryParse(value) ?? 12.0;
+                context.read<ViewBuilderBloc>().add(
+                    ChangePropertiesSelectedWidgetEvent(
+                        changedProperties: properties));
+              },
+              decoration: const InputDecoration(labelText: 'Vertical Padding'),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),

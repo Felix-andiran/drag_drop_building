@@ -69,6 +69,8 @@ class DraggableWidget extends StatelessWidget {
         return const CustomerCard(
           width: 300,
           height: 150,
+          paddingDx: 16.0,
+          paddingDy: 16.0,
           title: 'Total Customer',
           value: '32,502',
           subtitle: '2.1% less than last month',
