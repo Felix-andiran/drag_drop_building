@@ -66,22 +66,18 @@ class DraggableWidget extends StatelessWidget {
           ),
         );
       case 'card':
-        return const CustomerCard(
-          width: 300,
-          height: 150,
-          paddingDx: 16.0,
-          paddingDy: 16.0,
-          title: 'Total Customer',
-          value: '32,502',
-          subtitle: '2.1% less than last month',
-          titleFontSize: 16,
-          valueFontSize: 32,
-          subTitleFontSize: 14,
-          titleColor: "0xFF757575",
-          valueColor: "0xFF000000",
-          subTitleColor: "0xFFFF0000",
-          backgroundColor: "0xFFFFFFFF",
-          borderRadius: 10,
+        return Material(
+          color: Colors.white,
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(10),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Card One Component',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.amber,
+                )),
+          ),
         );
       default:
         return Container();
@@ -119,6 +115,20 @@ class DraggableWidget extends StatelessWidget {
                   color: Color(int.parse(data.properties['labelColor'])),
                   fontSize: data.properties['labelSize']),
             ),
+          ),
+        );
+      case 'card':
+        return Material(
+          color: Colors.white,
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(10),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Card One Component',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.amber,
+                )),
           ),
         );
       default:

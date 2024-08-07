@@ -69,6 +69,29 @@ class DataListWidget extends StatelessWidget {
       }
     });
 
+    viewWidgets.add(DraggableWidget(
+      data: WidgetModel(type: widgetModelType(WidgetType.card), properties: {
+        "key": "customer",
+        "width": 300,
+        "height": 160,
+        "dx": 0.0,
+        "dy": 0.0,
+        "paddingDx": 16.0,
+        "paddingDy": 16.0,
+        "borderRadius": 10,
+        "title": "Total Customer",
+        "value": "32,502",
+        "subtitle": "2.1% less than last month",
+        "titleFontSize": 16,
+        "valueFontSize": 32,
+        "subTitleFontSize": 14,
+        "titleColor": "0xFF757575",
+        "valueColor": "0xFF000000",
+        "subTitleColor": "0xFFFF0000",
+        "backgroundColor": "0xFFFFFFFF"
+      }),
+    ));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
