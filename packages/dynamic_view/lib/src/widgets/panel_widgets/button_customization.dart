@@ -75,7 +75,7 @@ class _ButtonCustomizationState extends State<ButtonCustomization> {
     return BlocBuilder<ViewBuilderBloc, ViewBuilderState>(
       builder: (context, state) {
         _updateControllers();
-        final WidgetModel selectedWidget = state.selectedWidget!;
+        final WidgetModel selectedWidget = state.selectedWidgetModel!;
         final Map<String, dynamic> properties =
             Map<String, dynamic>.from(selectedWidget.properties);
 

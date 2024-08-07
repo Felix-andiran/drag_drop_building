@@ -46,7 +46,7 @@ class FullScreenPreviewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       height: max(
-                          state.rightSideWidgets.fold<double>(
+                          state.droppedWidgetModels.fold<double>(
                             0.0,
                             (sum, widgetModel) =>
                                 sum +
@@ -57,9 +57,10 @@ class FullScreenPreviewDialog extends StatelessWidget {
                       width: state.width,
                       child: Stack(
                         children: List.generate(
-                          state.rightSideWidgets.length,
+                          state.droppedWidgetModels.length,
                           (index) {
-                            final widgetModel = state.rightSideWidgets[index];
+                            final widgetModel =
+                                state.droppedWidgetModels[index];
                             final double dx = widgetModel.properties['dx'];
                             final double dy = widgetModel.properties['dy'];
                             final double height =
@@ -74,7 +75,7 @@ class FullScreenPreviewDialog extends StatelessWidget {
                               clampingRect: Offset.zero &
                                   Size(
                                       state.width,
-                                      state.rightSideWidgets.fold<double>(
+                                      state.droppedWidgetModels.fold<double>(
                                         0.0,
                                         (sum, widgetModel) =>
                                             sum +

@@ -6,8 +6,8 @@ final class ViewBuilderState extends Equatable {
   const ViewBuilderState({
     required this.status,
     required this.message,
-    required this.rightSideWidgets,
-    required this.selectedWidget,
+    required this.droppedWidgetModels,
+    required this.selectedWidgetModel,
     required this.height,
     required this.width,
     required this.leftPanelView,
@@ -20,8 +20,8 @@ final class ViewBuilderState extends Equatable {
 
   final ViewBuilderStatus status;
   final String message;
-  final List<WidgetModel> rightSideWidgets;
-  final WidgetModel? selectedWidget;
+  final List<WidgetModel> droppedWidgetModels;
+  final WidgetModel? selectedWidgetModel;
   final double height;
   final double width;
   final bool leftPanelView;
@@ -36,8 +36,8 @@ final class ViewBuilderState extends Equatable {
   static ViewBuilderState initial = ViewBuilderState(
     status: ViewBuilderStatus.initial,
     message: '',
-    rightSideWidgets: const [],
-    selectedWidget: null,
+    droppedWidgetModels: const [],
+    selectedWidgetModel: null,
     height: deviceList.map((json) => DeviceOption.fromJson(json)).first.height,
     width: deviceList.map((json) => DeviceOption.fromJson(json)).first.width,
     devices: deviceList.map((json) => DeviceOption.fromJson(json)).toList(),
@@ -61,8 +61,8 @@ final class ViewBuilderState extends Equatable {
   ViewBuilderState copyWith({
     ViewBuilderStatus? status,
     String? message,
-    List<WidgetModel>? rightSideWidgets,
-    WidgetModel? selectedWidget,
+    List<WidgetModel>? droppedWidgetModels,
+    WidgetModel? selectedWidgetModel,
     double? height,
     double? width,
     bool? leftPanelView,
@@ -75,8 +75,8 @@ final class ViewBuilderState extends Equatable {
     return ViewBuilderState(
       status: status ?? this.status,
       message: message ?? this.message,
-      rightSideWidgets: rightSideWidgets ?? this.rightSideWidgets,
-      selectedWidget: selectedWidget ?? this.selectedWidget,
+      droppedWidgetModels: droppedWidgetModels ?? this.droppedWidgetModels,
+      selectedWidgetModel: selectedWidgetModel ?? this.selectedWidgetModel,
       height: height ?? this.height,
       width: width ?? this.width,
       devices: devices ?? this.devices,
@@ -92,7 +92,7 @@ final class ViewBuilderState extends Equatable {
   List<Object?> get props => [
         status,
         message,
-        rightSideWidgets,
+        droppedWidgetModels,
         height,
         width,
         leftPanelView,

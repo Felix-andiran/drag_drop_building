@@ -16,19 +16,19 @@ class DeviceOptionEvent extends ViewBuilderEvent {
   List<Object> get props => [device];
 }
 
-class RightSidePositionedWidgetEvent extends ViewBuilderEvent {
+class DroppedWidgetModelEvent extends ViewBuilderEvent {
   final WidgetModel widget;
-  const RightSidePositionedWidgetEvent({
+  const DroppedWidgetModelEvent({
     required this.widget,
   });
   @override
   List<Object> get props => [widget];
 }
 
-class RemoveRightSideWidgetEvent extends ViewBuilderEvent {
+class RemoveWidgetModelFromDroppedListEvent extends ViewBuilderEvent {
   final Widget widget;
   final String key;
-  const RemoveRightSideWidgetEvent({
+  const RemoveWidgetModelFromDroppedListEvent({
     required this.widget,
     required this.key,
   });

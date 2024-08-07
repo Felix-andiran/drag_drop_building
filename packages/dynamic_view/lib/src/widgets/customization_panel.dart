@@ -16,14 +16,14 @@ class CustomizationPanelState extends State<CustomizationPanel> {
   Widget build(BuildContext context) {
     return BlocBuilder<ViewBuilderBloc, ViewBuilderState>(
       builder: (context, state) {
-        if (state.selectedWidget == null || state.rightSideWidgets.isEmpty) {
+        if (state.selectedWidgetModel == null || state.droppedWidgetModels.isEmpty) {
           return Scaffold(
             appBar: AppBar(title: const Text('Customization Panel')),
             body: const Center(child: Text('Select a widget to customize')),
           );
         }
 
-        final WidgetModel selectedWidget = state.selectedWidget!;
+        final WidgetModel selectedWidget = state.selectedWidgetModel!;
 
         return Scaffold(
           appBar: AppBar(

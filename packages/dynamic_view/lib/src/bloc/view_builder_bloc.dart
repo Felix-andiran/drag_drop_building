@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
-import 'package:dynamic_view/src/model/device_option.dart';
-import 'package:dynamic_view/src/model/widget_model.dart';
-import 'package:dynamic_view/src/repo/view_builder_repository.dart';
+import 'package:dynamic_view/dynamic_view_package.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,13 +13,13 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
       : _templateRepository = templateRepository,
         super(ViewBuilderState.initial) {
     on<DeviceOptionEvent>(_changeDeviceOptionToState);
-    on<RightSidePositionedWidgetEvent>(_insertRightSideWidgetToState);
-    on<RemoveRightSideWidgetEvent>(_removeRightSideWidgetFromState);
+    on<DroppedWidgetModelEvent>(_insertDroppedWidgetModelToState);
+    on<RemoveWidgetModelFromDroppedListEvent>(_removeWidgetModelFromState);
     on<SelectWidgetModelEvent>(_selectWidgetModelFromState);
     on<ChangePropertiesSelectedWidgetEvent>(
         _changeSelectWidgetPropertiesFromState);
     on<GetTemplateData>(_updateTemplateDataToState);
-    on<ResetRightSideWidget>(_resetRightSideWidgetsToState);
+    on<ResetRightSideWidget>(_resetdroppedWidgetModelsToState);
     on<RightPanelViewEvent>(_changeRightPanelExpandToState);
     on<LeftPanelViewEvent>(_changeLeftPanelExpandToState);
   }
@@ -53,23 +49,23 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  Future<void> _insertRightSideWidgetToState(
-      RightSidePositionedWidgetEvent event,
-      Emitter<ViewBuilderState> emit) async {
+  Future<void> _insertDroppedWidgetModelToState(
+      DroppedWidgetModelEvent event, Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
-      List<WidgetModel> newRightSideWidgets = List.from(state.rightSideWidgets);
-      bool widgetExists = newRightSideWidgets.any((widget) =>
+      List<WidgetModel> newdroppedWidgetModels =
+          List.from(state.droppedWidgetModels);
+      bool widgetExists = newdroppedWidgetModels.any((widget) =>
           widget.properties['key'] == event.widget.properties['key']);
 
       if (!widgetExists) {
-        var position = newRightSideWidgets.length;
-        if (newRightSideWidgets.contains(event.widget)) {
-          position = newRightSideWidgets.indexOf(event.widget);
+        var position = newdroppedWidgetModels.length;
+        if (newdroppedWidgetModels.contains(event.widget)) {
+          position = newdroppedWidgetModels.indexOf(event.widget);
         }
-        newRightSideWidgets.insert(position, event.widget);
+        newdroppedWidgetModels.insert(position, event.widget);
         emit(state.copyWith(
-            rightSideWidgets: newRightSideWidgets,
+            droppedWidgetModels: newdroppedWidgetModels,
             status: ViewBuilderStatus.loaded));
       } else {
         emit(state.copyWith(status: ViewBuilderStatus.loaded));
@@ -82,20 +78,21 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  Future<void> _removeRightSideWidgetFromState(
-      RemoveRightSideWidgetEvent event, Emitter<ViewBuilderState> emit) async {
+  Future<void> _removeWidgetModelFromState(
+      RemoveWidgetModelFromDroppedListEvent event,
+      Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
-      List<WidgetModel> newRightSideWidgets =
-          List<WidgetModel>.from(state.rightSideWidgets);
+      List<WidgetModel> newdroppedWidgetModels =
+          List<WidgetModel>.from(state.droppedWidgetModels);
 
-      int indexToRemove = newRightSideWidgets
+      int indexToRemove = newdroppedWidgetModels
           .indexWhere((widget) => widget.properties['key'] == event.key);
       log.d("Index to be removed from the right side widget ::: ${event.key}");
-      newRightSideWidgets.removeAt(indexToRemove);
+      newdroppedWidgetModels.removeAt(indexToRemove);
 
       emit(state.copyWith(
-          rightSideWidgets: newRightSideWidgets,
+          droppedWidgetModels: newdroppedWidgetModels,
           status: ViewBuilderStatus.loaded));
     } catch (error) {
       log.e(
@@ -114,7 +111,7 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
           "Selected Widget Model from right side widgets ::: ${event.widgetModel.properties}");
 
       emit(state.copyWith(
-          selectedWidget: event.widgetModel, status: ViewBuilderStatus.loaded));
+          selectedWidgetModel: event.widgetModel, status: ViewBuilderStatus.loaded));
     } catch (error) {
       log.e(
           "Select Widget Model from Right Side Widget Event::Setting state to failure::::$error");
@@ -130,10 +127,10 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
       log.d(event.changedProperties);
-      List<WidgetModel> newRightSideWidgets =
-          List<WidgetModel>.from(state.rightSideWidgets);
+      List<WidgetModel> newdroppedWidgetModels =
+          List<WidgetModel>.from(state.droppedWidgetModels);
 
-      int indexOfWidgetModel = newRightSideWidgets.indexWhere((widget) =>
+      int indexOfWidgetModel = newdroppedWidgetModels.indexWhere((widget) =>
           widget.properties['key'] == event.changedProperties['key']);
       log.d("Index of the widget to change properties: $indexOfWidgetModel");
 
@@ -142,13 +139,13 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
             'Widget with key ${event.changedProperties['key']} not found');
       }
 
-      newRightSideWidgets[indexOfWidgetModel].properties = {
-        ...newRightSideWidgets[indexOfWidgetModel].properties,
+      newdroppedWidgetModels[indexOfWidgetModel].properties = {
+        ...newdroppedWidgetModels[indexOfWidgetModel].properties,
         ...event.changedProperties,
       };
 
       emit(state.copyWith(
-          rightSideWidgets: newRightSideWidgets,
+          droppedWidgetModels: newdroppedWidgetModels,
           status: ViewBuilderStatus.loaded));
     } catch (error) {
       log.e(
@@ -172,10 +169,10 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
           .toList();
 
       final List<WidgetModel> updatedTemplateModelList =
-          List.from(state.rightSideWidgets)..addAll(templateModelList);
+          List.from(state.droppedWidgetModels)..addAll(templateModelList);
 
       emit(state.copyWith(
-        rightSideWidgets: updatedTemplateModelList,
+        droppedWidgetModels: updatedTemplateModelList,
         status: ViewBuilderStatus.loaded,
       ));
     } catch (error) {
@@ -187,14 +184,14 @@ class ViewBuilderBloc extends Bloc<ViewBuilderEvent, ViewBuilderState> {
     }
   }
 
-  Future<void> _resetRightSideWidgetsToState(
+  Future<void> _resetdroppedWidgetModelsToState(
       ResetRightSideWidget event, Emitter<ViewBuilderState> emit) async {
     emit(state.copyWith(status: ViewBuilderStatus.loading));
     try {
       List<WidgetModel> resetWidgets = [];
 
       emit(state.copyWith(
-          rightSideWidgets: resetWidgets, status: ViewBuilderStatus.loaded));
+          droppedWidgetModels: resetWidgets, status: ViewBuilderStatus.loaded));
     } catch (error) {
       log.e("Error during reset:: $error");
       emit(state.copyWith(

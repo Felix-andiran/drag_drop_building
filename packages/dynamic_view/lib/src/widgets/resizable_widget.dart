@@ -108,7 +108,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
           child: InkWell(
             onTap: () {
               context.read<ViewBuilderBloc>().add(
-                    RemoveRightSideWidgetEvent(widget: widget, key: key),
+                    RemoveWidgetModelFromDroppedListEvent(
+                        widget: widget, key: key),
                   );
             },
             child: const Icon(

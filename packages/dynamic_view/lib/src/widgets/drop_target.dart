@@ -88,7 +88,7 @@ class DropTargetState extends State<DropTarget> {
                               }
                               details.data.properties['width'] = width;
                               context.read<ViewBuilderBloc>().add(
-                                    RightSidePositionedWidgetEvent(
+                                    DroppedWidgetModelEvent(
                                         widget: details.data),
                                   );
                             },
@@ -107,7 +107,7 @@ class DropTargetState extends State<DropTarget> {
                                       child: SingleChildScrollView(
                                         child: SizedBox(
                                           height: max(
-                                              state.rightSideWidgets
+                                              state.droppedWidgetModels
                                                   .fold<double>(
                                                 0.0,
                                                 (sum, widgetModel) =>
@@ -121,7 +121,7 @@ class DropTargetState extends State<DropTarget> {
                                           width: bodyWidth,
                                           child: Stack(
                                             fit: StackFit.passthrough,
-                                            children: state.rightSideWidgets
+                                            children: state.droppedWidgetModels
                                                 .map((widgetModel) {
                                               final double dx = widgetModel
                                                       .properties['dx'] ??
@@ -145,7 +145,7 @@ class DropTargetState extends State<DropTarget> {
                                                         bodyWidth,
                                                         max(
                                                             state
-                                                                .rightSideWidgets
+                                                                .droppedWidgetModels
                                                                 .fold<double>(
                                                               0.0,
                                                               (sum, widgetModel) =>

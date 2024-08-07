@@ -101,7 +101,7 @@ class _DynamicViewBuilderState extends State<DynamicViewBuilder> {
                     ? Expanded(
                         flex: 1,
                         child: CustomizationPanel(
-                          widget: state.selectedWidget,
+                          widget: state.selectedWidgetModel,
                         ),
                       )
                     : const SizedBox.shrink(),
