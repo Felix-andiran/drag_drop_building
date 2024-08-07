@@ -77,7 +77,7 @@ class DraggableWidget extends StatelessWidget {
           subTitleFontSize: 14,
           titleColor: "0xFF757575",
           valueColor: "0xFF000000",
-          subtitleColor: "0xFFFF0000",
+          subTitleColor: "0xFFFF0000",
           backgroundColor: "0xFFFFFFFF",
           borderRadius: 10,
         );

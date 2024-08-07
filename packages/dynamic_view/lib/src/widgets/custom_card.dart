@@ -12,7 +12,7 @@ class CustomerCard extends StatelessWidget {
   final double subTitleFontSize;
   final String titleColor;
   final String valueColor;
-  final String subtitleColor;
+  final String subTitleColor;
   final String backgroundColor;
 
   const CustomerCard({
@@ -28,7 +28,7 @@ class CustomerCard extends StatelessWidget {
     required this.subTitleFontSize,
     required this.titleColor,
     required this.valueColor,
-    required this.subtitleColor,
+    required this.subTitleColor,
     required this.backgroundColor,
   });
 
@@ -77,7 +77,7 @@ class CustomerCard extends StatelessWidget {
             Text(
               subtitle,
               style: TextStyle(
-                color: Color(int.parse(subtitleColor)),
+                color: Color(int.parse(subTitleColor)),
                 fontSize: subTitleFontSize,
               ),
             ),

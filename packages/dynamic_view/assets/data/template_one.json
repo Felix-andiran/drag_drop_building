@@ -17,7 +17,7 @@
                 "subTitleFontSize": 14,
                 "titleColor": 757575,
                 "valueColor": "000000",
-                "subtitleColor": "FF0000",
+                "subTitleColor": "FF0000",
                 "backgroundColor": "FFFFFF",
                 "iconColor": "808080"
             }
@@ -38,7 +38,7 @@
                 "subTitleFontSize": 14,
                 "titleColor": 757575,
                 "valueColor": "000000",
-                "subtitleColor": "FF0000",
+                "subTitleColor": "FF0000",
                 "backgroundColor": "FFFFFF",
                 "iconColor": "808080"
             }
@@ -59,7 +59,7 @@
                 "subTitleFontSize": 14,
                 "titleColor": 757575,
                 "valueColor": "000000",
-                "subtitleColor": "FF0000",
+                "subTitleColor": "FF0000",
                 "backgroundColor": "FFFFFF",
                 "iconColor": "808080"
             }

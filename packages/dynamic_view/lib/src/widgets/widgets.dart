@@ -7,5 +7,6 @@ export 'device_dropdown.dart';
 export 'draggable_widget.dart';
 export 'drop_target.dart';
 export 'nested_widget.dart';
-export 'resizable_widget.dart';
+export 'panel_widgets/panel_widgets.dart';
 export 'preview_dialogue.dart';
+export 'resizable_widget.dart';

@@ -212,7 +212,7 @@ class PreviewBodyWidgetState extends State<PreviewBodyWidget> {
           subTitleFontSize: widget.widget.properties['subTitleFontSize'],
           titleColor: widget.widget.properties['titleColor'],
           valueColor: widget.widget.properties['valueColor'],
-          subtitleColor: widget.widget.properties['subtitleColor'],
+          subTitleColor: widget.widget.properties['subTitleColor'],
           backgroundColor: widget.widget.properties['backgroundColor'],
           borderRadius: widget.widget.properties['borderRadius'],
         );
