@@ -65,17 +65,31 @@ class DraggableWidget extends StatelessWidget {
             ),
           ),
         );
-      case 'card':
+      case 'cardWithTitleDescription':
         return Material(
           color: Colors.white,
           elevation: 4.0,
           borderRadius: BorderRadius.circular(10),
           child: const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text('Card One Component',
+            child: Text('Card With Title Description',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.amber,
+                )),
+          ),
+        );
+      case 'cardWithMenu':
+        return Material(
+          color: Colors.white,
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(10),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Card With Menu',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue,
                 )),
           ),
         );
@@ -128,6 +142,20 @@ class DraggableWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.amber,
+                )),
+          ),
+        );
+      case 'cardWithMenu':
+        return Material(
+          color: Colors.white,
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(10),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Card With Menu',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue,
                 )),
           ),
         );

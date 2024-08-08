@@ -1,4 +1,5 @@
 import 'package:dynamic_view/dynamic_view_package.dart';
+import 'package:dynamic_view/src/widgets/components/card_with_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -77,8 +78,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
           ),
         );
         break;
-      case 'card':
-        widgetContent = CustomerCard(
+      case 'cardWithTitleDescription':
+        widgetContent = CardWithTitleDescription(
           width: widget.widget.properties['width'],
           height: widget.widget.properties['height'],
           paddingDx: widget.widget.properties['paddingDx'],
@@ -92,6 +93,22 @@ class ResizableWidgetState extends State<ResizableWidget> {
           titleColor: widget.widget.properties['titleColor'],
           valueColor: widget.widget.properties['valueColor'],
           subTitleColor: widget.widget.properties['subTitleColor'],
+          backgroundColor: widget.widget.properties['backgroundColor'],
+          borderRadius: widget.widget.properties['borderRadius'],
+        );
+        break;
+      case 'cardWithMenu':
+        widgetContent = CardWithMenu(
+          width: widget.widget.properties['width'],
+          height: widget.widget.properties['height'],
+          paddingDx: widget.widget.properties['paddingDx'],
+          paddingDy: widget.widget.properties['paddingDy'],
+          title: widget.widget.properties['title'],
+          description: widget.widget.properties['description'],
+          titleFontSize: widget.widget.properties['titleFontSize'],
+          descriptionFontSize: widget.widget.properties['descriptionFontSize'],
+          titleColor: widget.widget.properties['titleColor'],
+          descriptionColor: widget.widget.properties['descriptionColor'],
           backgroundColor: widget.widget.properties['backgroundColor'],
           borderRadius: widget.widget.properties['borderRadius'],
         );

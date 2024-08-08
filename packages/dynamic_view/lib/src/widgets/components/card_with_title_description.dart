@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomerCard extends StatelessWidget {
+class CardWithTitleDescription extends StatelessWidget {
   final double width;
   final double height;
   final double paddingDx;
@@ -17,7 +17,7 @@ class CustomerCard extends StatelessWidget {
   final String subTitleColor;
   final String backgroundColor;
 
-  const CustomerCard({
+  const CardWithTitleDescription({
     super.key,
     required this.width,
     required this.height,

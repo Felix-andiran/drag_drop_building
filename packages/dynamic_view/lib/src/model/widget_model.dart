@@ -1,4 +1,4 @@
-enum WidgetType { text, button, card }
+enum WidgetType { text, button, cardWithTitleDescription, cardWithMenu }
 
 class WidgetModel {
   final String type;

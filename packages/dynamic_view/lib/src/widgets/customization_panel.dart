@@ -43,7 +43,7 @@ class CustomizationPanelState extends State<CustomizationPanel> {
                     ButtonCustomization(
                       widget: selectedWidget,
                     ),
-                  if (widget.widget!.type == widgetModelType(WidgetType.card))
+                  if (widget.widget!.type == widgetModelType(WidgetType.cardWithTitleDescription))
                     CardCustomization(
                       widget: selectedWidget,
                     ),

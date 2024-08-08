@@ -10,8 +10,11 @@ String widgetModelType(WidgetType value) {
     case WidgetType.button:
       message = 'button';
       break;
-    case WidgetType.card:
-      message = 'card';
+    case WidgetType.cardWithTitleDescription:
+      message = 'cardWithTitleDescription';
+      break;
+    case WidgetType.cardWithMenu:
+      message = 'cardWithMenu';
       break;
   }
   return message;
