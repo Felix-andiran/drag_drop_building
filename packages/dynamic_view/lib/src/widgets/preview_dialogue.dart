@@ -231,6 +231,8 @@ class PreviewBodyWidgetState extends State<PreviewBodyWidget> {
           paddingDx: widget.widget.properties['paddingDx'],
           paddingDy: widget.widget.properties['paddingDy'],
           title: widget.widget.properties['title'],
+          buttonTitle: widget.widget.properties['buttonTitle'],
+          buttonColor: widget.widget.properties['buttonColor'],
           description: widget.widget.properties['description'],
           titleFontSize: widget.widget.properties['titleFontSize'],
           descriptionFontSize: widget.widget.properties['descriptionFontSize'],

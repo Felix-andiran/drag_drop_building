@@ -1,5 +1,4 @@
 import 'package:dynamic_view/dynamic_view_package.dart';
-import 'package:dynamic_view/src/widgets/components/card_with_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -104,6 +103,8 @@ class ResizableWidgetState extends State<ResizableWidget> {
           paddingDx: widget.widget.properties['paddingDx'],
           paddingDy: widget.widget.properties['paddingDy'],
           title: widget.widget.properties['title'],
+          buttonTitle: widget.widget.properties['buttonTitle'],
+          buttonColor: widget.widget.properties['buttonColor'],
           description: widget.widget.properties['description'],
           titleFontSize: widget.widget.properties['titleFontSize'],
           descriptionFontSize: widget.widget.properties['descriptionFontSize'],

@@ -108,11 +108,13 @@ class DataListWidget extends StatelessWidget {
             "paddingDy": 8,
             "borderRadius": 8.0,
             "title": "Task",
+            "buttonTitle": 'Inprogress',
             "description":
                 'when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived.',
             "titleFontSize": 16.0,
             "descriptionFontSize": 14.0,
             "titleColor": "0xFF000000",
+            "buttonColor": "0xFF2196F3",
             "descriptionColor": "0xFF525F7F",
             "backgroundColor": "0xFFE9EBF0"
           }),

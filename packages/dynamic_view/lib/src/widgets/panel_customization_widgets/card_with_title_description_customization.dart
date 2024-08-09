@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-class CardCustomization extends StatefulWidget {
+class CardWithTitleDescriptionCustomization extends StatefulWidget {
   final WidgetModel? widget;
 
-  const CardCustomization({
+  const CardWithTitleDescriptionCustomization({
     required this.widget,
     super.key,
   });
 
   @override
-  State<CardCustomization> createState() => _CardCustomizationState();
+  State<CardWithTitleDescriptionCustomization> createState() =>
+      _CardWithTitleDescriptionCustomizationState();
 }
 
-class _CardCustomizationState extends State<CardCustomization> {
+class _CardWithTitleDescriptionCustomizationState
+    extends State<CardWithTitleDescriptionCustomization> {
   late TextEditingController _labelController;
   late TextEditingController _labelFontSizeController;
   late TextEditingController _valueFontSizeController;
@@ -33,7 +35,8 @@ class _CardCustomizationState extends State<CardCustomization> {
   }
 
   @override
-  void didUpdateWidget(covariant CardCustomization oldWidget) {
+  void didUpdateWidget(
+      covariant CardWithTitleDescriptionCustomization oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.widget != widget.widget) {
       _initControllers();

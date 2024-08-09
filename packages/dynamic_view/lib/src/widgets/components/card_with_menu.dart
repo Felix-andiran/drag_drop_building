@@ -7,10 +7,12 @@ class CardWithMenu extends StatelessWidget {
   final double paddingDy;
   final double borderRadius;
   final String title;
+  final String buttonTitle;
   final String description;
   final double titleFontSize;
   final double descriptionFontSize;
   final String titleColor;
+  final String buttonColor;
   final String descriptionColor;
   final String backgroundColor;
   const CardWithMenu({
@@ -21,10 +23,12 @@ class CardWithMenu extends StatelessWidget {
     required this.paddingDy,
     required this.borderRadius,
     required this.title,
+    required this.buttonTitle,
     required this.description,
     required this.titleFontSize,
     required this.descriptionFontSize,
     required this.titleColor,
+    required this.buttonColor,
     required this.descriptionColor,
     required this.backgroundColor,
   });
@@ -73,15 +77,15 @@ class CardWithMenu extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.blue,
                   backgroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.blue),
+                  side: BorderSide(color: Color(int.parse(buttonColor))),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: const Text(
-                  'Inprogress',
+                child: Text(
+                  buttonTitle,
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(int.parse(buttonColor)),
                   ),
                 ),
               ),
